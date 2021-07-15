@@ -8,11 +8,11 @@
 import Foundation
 import RxSwift
 
-protocol JSonParserType: AnyObject {
+protocol JSONParserType: AnyObject {
     func processCodableResponse<D: Codable>(from data: Data) -> Observable<D>
 }
 
-final class JSONParser: JSonParserType {
+final class JSONParser: JSONParserType {
     func processCodableResponse<D: Codable>(from data: Data) -> Observable<D> {
         return Observable.create { observer in
             do {

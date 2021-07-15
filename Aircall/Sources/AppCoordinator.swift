@@ -13,6 +13,7 @@ final class AppCoordinator {
 
     private unowned var appDelegate: AppDelegate
     private let context: Context
+    private var activitiesCoordinator: ActivitiesCoordinator?
 
     // MARK: - Initializer
 
@@ -35,11 +36,14 @@ final class AppCoordinator {
             return
         }
 
-        showHome()
+        showActivities()
     }
 
-    private func showHome() {
-        
+    private func showActivities() {
+        activitiesCoordinator = ActivitiesCoordinator(
+            presenter: appDelegate.window!,
+            context: context
+        )
+        activitiesCoordinator?.start()
     }
 }
-
