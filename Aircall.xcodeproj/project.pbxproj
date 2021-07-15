@@ -20,6 +20,18 @@
 		2FD2D3B826A075EE009AA391 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD2D3B726A075EE009AA391 /* RxBlocking */; };
 		2FD2D3BB26A07603009AA391 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD2D3BA26A07603009AA391 /* SnapKit */; };
 		2FD2D3BE26A07620009AA391 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD2D3BD26A07620009AA391 /* SnapshotTesting */; };
+		2FD2D3C026A07DDE009AA391 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */; };
+		2FD2D3C226A07DEA009AA391 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C126A07DEA009AA391 /* UIStackView.swift */; };
+		2FD2D3C426A07DF7009AA391 /* Result+Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C326A07DF7009AA391 /* Result+Single.swift */; };
+		2FD2D3C626A07E10009AA391 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C526A07E10009AA391 /* HTTPClient.swift */; };
+		2FD2D3C826A07E1F009AA391 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C726A07E1E009AA391 /* RequestBuilder.swift */; };
+		2FD2D3CA26A07E2E009AA391 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C926A07E2E009AA391 /* JSONParser.swift */; };
+		2FD2D3CC26A07E3E009AA391 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3CB26A07E3E009AA391 /* Endpoint.swift */; };
+		2FD2D3CE26A07E50009AA391 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3CD26A07E50009AA391 /* APIError.swift */; };
+		2FD2D3D126A07E6C009AA391 /* ResquestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3D026A07E6C009AA391 /* ResquestBuilderTests.swift */; };
+		2FD2D3D326A07E79009AA391 /* HTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3D226A07E79009AA391 /* HTTPClientTests.swift */; };
+		2FD2D3D526A07E8E009AA391 /* Network+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3D426A07E8E009AA391 /* Network+Utilities.swift */; };
+		2FD2D3D726A07E9E009AA391 /* JSONParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3D626A07E9E009AA391 /* JSONParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +55,18 @@
 		2FD2D3A326A07463009AA391 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		2FD2D3A726A07508009AA391 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		2FD2D3A926A0750F009AA391 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
+		2FD2D3C126A07DEA009AA391 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		2FD2D3C326A07DF7009AA391 /* Result+Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Single.swift"; sourceTree = "<group>"; };
+		2FD2D3C526A07E10009AA391 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		2FD2D3C726A07E1E009AA391 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		2FD2D3C926A07E2E009AA391 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		2FD2D3CB26A07E3E009AA391 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		2FD2D3CD26A07E50009AA391 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		2FD2D3D026A07E6C009AA391 /* ResquestBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResquestBuilderTests.swift; sourceTree = "<group>"; };
+		2FD2D3D226A07E79009AA391 /* HTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTests.swift; sourceTree = "<group>"; };
+		2FD2D3D426A07E8E009AA391 /* Network+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Utilities.swift"; sourceTree = "<group>"; };
+		2FD2D3D626A07E9E009AA391 /* JSONParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +125,7 @@
 		2FD2D38926A07436009AA391 /* AircallTests */ = {
 			isa = PBXGroup;
 			children = (
+				2FD2D3CF26A07E5B009AA391 /* Network */,
 				2FD2D38C26A07436009AA391 /* Info.plist */,
 			);
 			path = AircallTests;
@@ -139,6 +164,11 @@
 		2FD2D3AC26A07541009AA391 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2FD2D3C526A07E10009AA391 /* HTTPClient.swift */,
+				2FD2D3C726A07E1E009AA391 /* RequestBuilder.swift */,
+				2FD2D3C926A07E2E009AA391 /* JSONParser.swift */,
+				2FD2D3CB26A07E3E009AA391 /* Endpoint.swift */,
+				2FD2D3CD26A07E50009AA391 /* APIError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -146,8 +176,22 @@
 		2FD2D3AD26A07547009AA391 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */,
+				2FD2D3C126A07DEA009AA391 /* UIStackView.swift */,
+				2FD2D3C326A07DF7009AA391 /* Result+Single.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2FD2D3CF26A07E5B009AA391 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2FD2D3D026A07E6C009AA391 /* ResquestBuilderTests.swift */,
+				2FD2D3D226A07E79009AA391 /* HTTPClientTests.swift */,
+				2FD2D3D626A07E9E009AA391 /* JSONParserTests.swift */,
+				2FD2D3D426A07E8E009AA391 /* Network+Utilities.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +257,7 @@
 					};
 					2FD2D38526A07436009AA391 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
 						TestTargetID = 2FD2D36F26A07434009AA391;
 					};
 				};
@@ -268,7 +313,15 @@
 			files = (
 				2FD2D3AA26A0750F009AA391 /* AppCoordinator.swift in Sources */,
 				2FD2D37426A07434009AA391 /* AppDelegate.swift in Sources */,
+				2FD2D3CA26A07E2E009AA391 /* JSONParser.swift in Sources */,
+				2FD2D3C226A07DEA009AA391 /* UIStackView.swift in Sources */,
+				2FD2D3CC26A07E3E009AA391 /* Endpoint.swift in Sources */,
+				2FD2D3C626A07E10009AA391 /* HTTPClient.swift in Sources */,
+				2FD2D3C026A07DDE009AA391 /* UIViewController+Rx.swift in Sources */,
+				2FD2D3C426A07DF7009AA391 /* Result+Single.swift in Sources */,
 				2FD2D3A826A07508009AA391 /* Context.swift in Sources */,
+				2FD2D3C826A07E1F009AA391 /* RequestBuilder.swift in Sources */,
+				2FD2D3CE26A07E50009AA391 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +329,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FD2D3D526A07E8E009AA391 /* Network+Utilities.swift in Sources */,
+				2FD2D3D326A07E79009AA391 /* HTTPClientTests.swift in Sources */,
+				2FD2D3D726A07E9E009AA391 /* JSONParserTests.swift in Sources */,
+				2FD2D3D126A07E6C009AA391 /* ResquestBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +517,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T9PQ7T394X;
 				INFOPLIST_FILE = AircallTests/Info.plist;
@@ -471,6 +529,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bertrand.bloc-h.AircallTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aircall.app/Aircall";
@@ -482,6 +541,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T9PQ7T394X;
 				INFOPLIST_FILE = AircallTests/Info.plist;
