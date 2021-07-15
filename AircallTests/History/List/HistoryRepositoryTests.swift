@@ -1,5 +1,5 @@
 //
-//  ActivitiesRepositoryTests.swift
+//  HistoryRepositoryTests.swift
 //  AircallTests
 //
 //  Created by Bertrand BLOC'H on 15/07/2021.
@@ -9,12 +9,12 @@ import XCTest
 import RxSwift
 @testable import Aircall
 
-final class ActivitiesRepositoryTests: XCTestCase {
+final class HistoryRepositoryTests: XCTestCase {
 
     // MARK: - Properties
 
     private var disposeBag: DisposeBag!
-    private var repository: ActivitiesRepository!
+    private var repository: HistoryRepository!
 
     // MARK: - Setup
 
@@ -25,7 +25,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGivenAnActivitiesRepository_WhenSuccessfullyGetActivities_ItReturnsResponse() {
+    func testGivenAHistoryRepository_WhenSuccessfullyGetActivities_ItReturnsResponse() {
         let expectation = self.expectation(description: "Success Get Activities")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -33,7 +33,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
             parser: JSONParser()
         )
 
-        let sut = repository.getActivities()
+        let sut = repository.getHistory()
 
         sut.subscribe(
             onSuccess: { result in
@@ -50,7 +50,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testGivenAnActivitiesRepository_WhenSuccessfullyArchiveActivity_ItReturnsResponse() {
+    func testGivenAHistoryRepository_WhenSuccessfullyArchiveActivity_ItReturnsResponse() {
         let expectation = self.expectation(description: "Success Archive Activity")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -75,7 +75,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testGivenAnActivitiesRepository_WhenSuccessfullyReset_ItReturnsResponse() {
+    func testGivenAHistoryRepository_WhenSuccessfullyReset_ItReturnsResponse() {
         let expectation = self.expectation(description: "Failure Archive Activity")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -100,7 +100,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testGivenAnActivitiesRepository_WhenFailGetActivities_ItReturnsError() {
+    func testGivenAHistoryRepository_WhenFailGetActivities_ItReturnsError() {
         let expectation = self.expectation(description: "Failure Get Activities")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -108,14 +108,14 @@ final class ActivitiesRepositoryTests: XCTestCase {
             parser: JSONParser()
         )
 
-        let sut = repository.getActivities()
+        let sut = repository.getHistory()
 
         sut.subscribe(
             onSuccess: { result in
                 switch result {
                 case .success: XCTFail()
                 case .failure(let error):
-                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                    if case HistoryError.dataConsistencyProblem = error {
                         expectation.fulfill()
                     } else {
                         XCTFail()
@@ -128,7 +128,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testGivenAnActivitiesRepository_WhenFailArchiveActivity_ItReturnsError() {
+    func testGivenAHistoryRepository_WhenFailArchiveActivity_ItReturnsError() {
         let expectation = self.expectation(description: "Failure Archive Activity")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -143,7 +143,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
                 switch result {
                 case .success: XCTFail()
                 case .failure(let error):
-                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                    if case HistoryError.dataConsistencyProblem = error {
                         expectation.fulfill()
                     } else {
                         XCTFail()
@@ -156,7 +156,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testGivenAnActivitiesRepository_WhenFailReset_ItReturnsError() {
+    func testGivenAHistoryRepository_WhenFailReset_ItReturnsError() {
         let expectation = self.expectation(description: "Failure Archive Activity")
         repository = .live(
             requestBuilder: RequestBuilder(),
@@ -171,7 +171,7 @@ final class ActivitiesRepositoryTests: XCTestCase {
                 switch result {
                 case .success: XCTFail()
                 case .failure(let error):
-                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                    if case HistoryError.dataConsistencyProblem = error {
                         expectation.fulfill()
                     } else {
                         XCTFail()
@@ -213,7 +213,7 @@ private extension MockClient.Responses {
 
 private enum MockData {
     static var activities: Data {
-        let path = Bundle.test.path(forResource: "ActivitiesResponse", ofType: ".json")!
+        let path = Bundle.test.path(forResource: "HistoryResponse", ofType: ".json")!
         return try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
     }
 

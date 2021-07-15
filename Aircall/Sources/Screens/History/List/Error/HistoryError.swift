@@ -1,5 +1,5 @@
 //
-//  ActivityDataSourceError.swift
+//  HistoryError.swift
 //  Aircall
 //
 //  Created by Bertrand BLOC'H on 15/07/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ActivityDataSourceError: Error {
+enum HistoryError: Error {
 
     /// If data cannot be read
     /// The associated `Error` might describe more details from internal layers.

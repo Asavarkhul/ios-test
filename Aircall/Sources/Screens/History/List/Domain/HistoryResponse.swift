@@ -1,5 +1,5 @@
 //
-//  ArchiveActivityResponse.swift
+//  HistoryResponse.swift
 //  Aircall
 //
 //  Created by Bertrand BLOC'H on 15/07/2021.
@@ -7,8 +7,10 @@
 
 import Foundation
 
-// MARK: - ArchiveActivityResponse
-struct ArchiveActivityResponse: Decodable {
+typealias HistoryResponse = [ActivityResponse]
+
+// MARK: - ActivitiesResponseElement
+struct ActivityResponse: Decodable {
     let id: Int
     let createdAt: String
     let direction: Direction
@@ -25,6 +27,7 @@ struct ArchiveActivityResponse: Decodable {
     }
 
     enum CallType: String, Decodable {
+        case missed
         case voicemail
         case answered
     }

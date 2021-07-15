@@ -1,5 +1,5 @@
 //
-//  ActivitiesCoordinator.swift
+//  HistoryCoordinator.swift
 //  Aircall
 //
 //  Created by Bertrand BLOC'H on 15/07/2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ActivitiesCoordinator {
+final class HistoryCoordinator {
     
     // MARK: - Properties
     
