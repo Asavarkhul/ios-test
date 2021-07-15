@@ -16,28 +16,31 @@ final class ActivitiesRepositoryTests: XCTestCase {
     private var disposeBag: DisposeBag!
     private var repository: ActivitiesRepository!
 
+    // MARK: - Setup
+
     override func setUp() {
         super.setUp()
         disposeBag = .init()
-        repository = .live(
-            requestBuilder: RequestBuilder(),
-            client: HTTPClient(),
-            parser: JSONParser()
-        )
     }
 
-    func test() {
-        let expectation = self.expectation(description: "Valid")
+    // MARK: - Tests
+
+    func testGivenAnActivitiesRepository_WhenSuccessfullyGetActivities_ItReturnsResponse() {
+        let expectation = self.expectation(description: "Success Get Activities")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .successGetActivities),
+            parser: JSONParser()
+        )
+
         let sut = repository.getActivities()
 
         sut.subscribe(
             onSuccess: { result in
                 switch result {
-                case .success(let response):
-                    print(response)
+                case .success:
                     expectation.fulfill()
-                case .failure:
-                    XCTFail()
+                case .failure: XCTFail()
                 }
             },
             onFailure: { _ in XCTFail() }
@@ -47,21 +50,134 @@ final class ActivitiesRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-    func testToto() {
-        let expectation = self.expectation(description: "Valid")
+    func testGivenAnActivitiesRepository_WhenSuccessfullyArchiveActivity_ItReturnsResponse() {
+        let expectation = self.expectation(description: "Success Archive Activity")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .successArchiveActivity),
+            parser: JSONParser()
+        )
+
         let sut = repository.archiveActivity("7831")
 
         sut.subscribe(
             onSuccess: { result in
                 switch result {
-                case .success(let response):
-                    print(response)
+                case .success:
                     expectation.fulfill()
-                case .failure:
-                    XCTFail()
+                case .failure: XCTFail()
                 }
             },
             onFailure: { _ in XCTFail() }
+        )
+        .disposed(by: disposeBag)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func testGivenAnActivitiesRepository_WhenSuccessfullyReset_ItReturnsResponse() {
+        let expectation = self.expectation(description: "Failure Archive Activity")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .successReset),
+            parser: JSONParser()
+        )
+
+        let sut = repository.reset()
+
+        sut.subscribe(
+            onSuccess: { result in
+                switch result {
+                case .success:
+                    expectation.fulfill()
+                case .failure: XCTFail()
+                }
+            },
+            onFailure: { _ in XCTFail() }
+        )
+        .disposed(by: disposeBag)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func testGivenAnActivitiesRepository_WhenFailGetActivities_ItReturnsError() {
+        let expectation = self.expectation(description: "Failure Get Activities")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .failure),
+            parser: JSONParser()
+        )
+
+        let sut = repository.getActivities()
+
+        sut.subscribe(
+            onSuccess: { result in
+                switch result {
+                case .success: XCTFail()
+                case .failure(let error):
+                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                        expectation.fulfill()
+                    } else {
+                        XCTFail()
+                    }
+                }
+            }, onFailure: { _ in XCTFail() }
+        )
+        .disposed(by: disposeBag)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func testGivenAnActivitiesRepository_WhenFailArchiveActivity_ItReturnsError() {
+        let expectation = self.expectation(description: "Failure Archive Activity")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .failure),
+            parser: JSONParser()
+        )
+
+        let sut = repository.archiveActivity("123")
+
+        sut.subscribe(
+            onSuccess: { result in
+                switch result {
+                case .success: XCTFail()
+                case .failure(let error):
+                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                        expectation.fulfill()
+                    } else {
+                        XCTFail()
+                    }
+                }
+            }, onFailure: { _ in XCTFail() }
+        )
+        .disposed(by: disposeBag)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func testGivenAnActivitiesRepository_WhenFailReset_ItReturnsError() {
+        let expectation = self.expectation(description: "Failure Archive Activity")
+        repository = .live(
+            requestBuilder: RequestBuilder(),
+            client: MockClient(responses: .failure),
+            parser: JSONParser()
+        )
+
+        let sut = repository.reset()
+
+        sut.subscribe(
+            onSuccess: { result in
+                switch result {
+                case .success: XCTFail()
+                case .failure(let error):
+                    if case ActivityDataSourceError.dataConsistencyProblem = error {
+                        expectation.fulfill()
+                    } else {
+                        XCTFail()
+                    }
+                }
+            }, onFailure: { _ in XCTFail() }
         )
         .disposed(by: disposeBag)
 
@@ -69,3 +185,45 @@ final class ActivitiesRepositoryTests: XCTestCase {
     }
 }
 
+private extension MockClient.Responses {
+    static var successGetActivities: MockClient.Responses {
+        MockClient.Responses(
+            onSendRequest: .just(MockData.activities)
+        )
+    }
+
+    static var successArchiveActivity: MockClient.Responses {
+        MockClient.Responses(
+            onSendRequest: .just(MockData.archiveActivity)
+        )
+    }
+
+    static var successReset: MockClient.Responses {
+        MockClient.Responses(
+            onSendRequest: .just(MockData.reset)
+        )
+    }
+
+    static var failure: MockClient.Responses {
+        MockClient.Responses(
+            onSendRequest: .error(APIError.noData)
+        )
+    }
+}
+
+private enum MockData {
+    static var activities: Data {
+        let path = Bundle.test.path(forResource: "ActivitiesResponse", ofType: ".json")!
+        return try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+    }
+
+    static var archiveActivity: Data {
+        let path = Bundle.test.path(forResource: "ArchiveActivityResponse", ofType: ".json")!
+        return try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+    }
+
+    static var reset: Data {
+        let path = Bundle.test.path(forResource: "ResetResponse", ofType: ".json")!
+        return try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+    }
+}

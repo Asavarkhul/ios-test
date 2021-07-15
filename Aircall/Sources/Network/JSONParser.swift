@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 
 protocol JSONParserType: AnyObject {
-    func processCodableResponse<D: Codable>(from data: Data) -> Observable<D>
+    func processCodableResponse<D: Decodable>(from data: Data) -> Observable<D>
 }
 
 final class JSONParser: JSONParserType {
-    func processCodableResponse<D: Codable>(from data: Data) -> Observable<D> {
+    func processCodableResponse<D: Decodable>(from data: Data) -> Observable<D> {
         return Observable.create { observer in
             do {
                 let object = try JSONDecoder().decode(D.self, from: data)

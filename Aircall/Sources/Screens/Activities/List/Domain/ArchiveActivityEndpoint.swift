@@ -14,6 +14,8 @@ struct ArchiveActivityEndpoint: Endpoint {
 
     init(id: String) {
         self.path = "https://aircall-job.herokuapp.com/activities/\(id)"
-        self.queryParameters = ["is_archived": true]
+        self.queryParameters = [
+            "is_archived": true
+        ]
     }
 }

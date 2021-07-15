@@ -10,7 +10,7 @@ import Foundation
 typealias ActivitiesResponse = [ActivityResponse]
 
 // MARK: - ActivitiesResponseElement
-struct ActivityResponse: Codable {
+struct ActivityResponse: Decodable {
     let id: Int
     let createdAt: String
     let direction: Direction
@@ -21,12 +21,12 @@ struct ActivityResponse: Codable {
     let isArchived: Bool
     let callType: String
 
-    enum Direction: String, Codable {
+    enum Direction: String, Decodable {
         case inbound
         case outbound
     }
 
-    enum CallType: String, Codable {
+    enum CallType: String, Decodable {
         case voicemail
         case answered
     }

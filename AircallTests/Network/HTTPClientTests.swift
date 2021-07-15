@@ -28,7 +28,8 @@ final class HTTPClientTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testWhenSendingGetRequest_itReceivesValidResponse() {
+    func testWhenSendingGetRequest_itReceivesValidResponse() throws {
+        try XCTSkipUnless(IntegrationTests.isEnabled)
         let expectation = self.expectation(description: "Received data response")
         let request = builder.build(from: ValidGetEndpoint())
         
@@ -47,7 +48,8 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testWhenSendingGetRequest_IfDataIsNilOrEmpty_ThenANoDataErrorIsReached() {
+    func testWhenSendingGetRequest_IfDataIsNilOrEmpty_ThenANoDataErrorIsReached() throws {
+        try XCTSkipUnless(IntegrationTests.isEnabled)
         let expectation = self.expectation(description: "No Data Error")
         let request = builder.build(from: ValidGetWithNoDataEndpoint())
         
@@ -72,7 +74,8 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testWhenSendingGetRequest_IfNilResponseOrBadHTTPStatusCode_ThenANetworkProblemErrorIsReached() {
+    func testWhenSendingGetRequest_IfNilResponseOrBadHTTPStatusCode_ThenANetworkProblemErrorIsReached() throws {
+        try XCTSkipUnless(IntegrationTests.isEnabled)
         let expectation = self.expectation(description: "Network problem Error")
         let request = builder.build(from: ClientErrorEndpoint())
         
