@@ -62,7 +62,7 @@
       "to":"Olivier Pailhes",
       "via":"Spain Hotline",
       "duration":"300",
-      "is_archived":false,
+      "is_archived":true,
       "call_type":"answered"
    }
 ]

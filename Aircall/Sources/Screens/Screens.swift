@@ -20,16 +20,27 @@ final class Screens {
     }
 }
 
-// MARK: - Activities
+// MARK: - History
 extension Screens {
-    func createActivities() -> UIViewController {
-        return UIViewController()
+    func createHistory(onSelectActivity: @escaping (Activity) -> Void) -> UIViewController {
+        let repository: HistoryRepository = .live(
+            requestBuilder: context.requestBuilder,
+            client: context.client,
+            parser: context.jsonParser
+        )
+        let viewModel = HistoryViewModel(
+            repository: repository,
+            actions: .init(
+                onSelectActivity: onSelectActivity
+            )
+        )
+        return HistoryViewController(viewModel: viewModel)
     }
 }
 
 // MARK: - Activity Details
 extension Screens {
-    func createActivityDetails(for id: String) -> UIViewController {
+    func createDetails(for activity: Activity) -> UIViewController {
         return UIViewController()
     }
 }

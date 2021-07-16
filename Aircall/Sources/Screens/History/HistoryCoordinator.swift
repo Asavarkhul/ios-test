@@ -30,15 +30,20 @@ final class HistoryCoordinator {
 
     func start() {
         presenter.rootViewController = navigationController
-        showArticles()
+        showHistory()
     }
 
-    private func showArticles() {
-        
-        
+    private func showHistory() {
+        let history = screens.createHistory(
+            onSelectActivity: { [weak self] activity in
+                self?.showDetails(for: activity)
+            }
+        )
+        navigationController.viewControllers = [history]
     }
 
-    private func showFavorites() {
-        
+    private func showDetails(for activity: Activity) {
+        let details = screens.createDetails(for: activity)
+        navigationController.pushViewController(details, animated: true)
     }
 }

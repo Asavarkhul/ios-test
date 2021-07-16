@@ -8,13 +8,16 @@
 import Foundation
 
 struct Activity {
-    let id: Int
+    let id: String
     let createdAt: String
     let direction: String
     let from: String
     let to: String?
     let via: String
     let duration: String
-    let isArchived: Bool
+    var isArchived: Bool
     let callType: String
+
+    mutating func unArchive() { isArchived = false }
+    mutating func archive() { isArchived = true }
 }

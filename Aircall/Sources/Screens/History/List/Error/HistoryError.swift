@@ -16,4 +16,8 @@ enum HistoryError: Error {
     /// If data was read, but model cannot be instantiated
     /// The associated `Error` might describe more details from internal layers.
     case dataConsistencyProblem(Error?)
+
+    /// If data was corrupted due to internal layer error
+    /// The associated `Error` might describe more details from internal layers.
+    case generalError(Error?)
 }

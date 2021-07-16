@@ -30,6 +30,10 @@
 		2F9A8C5F26A08F6C00BCBA76 /* ArchiveActivityEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A8C5E26A08F6C00BCBA76 /* ArchiveActivityEndpoint.swift */; };
 		2F9A8C6326A091D600BCBA76 /* HistoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A8C6226A091D600BCBA76 /* HistoryRepositoryTests.swift */; };
 		2F9A8C6526A093ED00BCBA76 /* ArchiveActivityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A8C6426A093ED00BCBA76 /* ArchiveActivityResponse.swift */; };
+		2FB793C326A17ACB00FAAF50 /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB793C226A17ACB00FAAF50 /* HistoryViewModelTests.swift */; };
+		2FB793C526A17C5700FAAF50 /* ObservableType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB793C426A17C5700FAAF50 /* ObservableType+Extension.swift */; };
+		2FB793C826A1839E00FAAF50 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB793C726A1839E00FAAF50 /* RxSwiftExt */; };
+		2FB793CA26A18F0700FAAF50 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB793C926A18F0700FAAF50 /* MockData.swift */; };
 		2FD2D37426A07434009AA391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D37326A07434009AA391 /* AppDelegate.swift */; };
 		2FD2D37D26A07435009AA391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FD2D37C26A07435009AA391 /* Assets.xcassets */; };
 		2FD2D38026A07435009AA391 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD2D37E26A07435009AA391 /* LaunchScreen.storyboard */; };
@@ -45,7 +49,7 @@
 		2FD2D3BE26A07620009AA391 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD2D3BD26A07620009AA391 /* SnapshotTesting */; };
 		2FD2D3C026A07DDE009AA391 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */; };
 		2FD2D3C226A07DEA009AA391 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C126A07DEA009AA391 /* UIStackView.swift */; };
-		2FD2D3C426A07DF7009AA391 /* Result+Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C326A07DF7009AA391 /* Result+Single.swift */; };
+		2FD2D3C426A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C326A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift */; };
 		2FD2D3C626A07E10009AA391 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C526A07E10009AA391 /* HTTPClient.swift */; };
 		2FD2D3C826A07E1F009AA391 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C726A07E1E009AA391 /* RequestBuilder.swift */; };
 		2FD2D3CA26A07E2E009AA391 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D3C926A07E2E009AA391 /* JSONParser.swift */; };
@@ -91,6 +95,9 @@
 		2F9A8C6226A091D600BCBA76 /* HistoryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepositoryTests.swift; sourceTree = "<group>"; };
 		2F9A8C6426A093ED00BCBA76 /* ArchiveActivityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveActivityResponse.swift; sourceTree = "<group>"; };
 		2F9A8C6626A0BEB200BCBA76 /* HistoryResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryResponse.json; sourceTree = "<group>"; };
+		2FB793C226A17ACB00FAAF50 /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
+		2FB793C426A17C5700FAAF50 /* ObservableType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+Extension.swift"; sourceTree = "<group>"; };
+		2FB793C926A18F0700FAAF50 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		2FD2D37026A07434009AA391 /* Aircall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aircall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD2D37326A07434009AA391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FD2D37C26A07435009AA391 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +110,7 @@
 		2FD2D3A926A0750F009AA391 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		2FD2D3C126A07DEA009AA391 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
-		2FD2D3C326A07DF7009AA391 /* Result+Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Single.swift"; sourceTree = "<group>"; };
+		2FD2D3C326A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrimitiveSequenceType+Extension.swift"; sourceTree = "<group>"; };
 		2FD2D3C526A07E10009AA391 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		2FD2D3C726A07E1E009AA391 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		2FD2D3C926A07E2E009AA391 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
@@ -123,6 +130,7 @@
 				2FD2D3B626A075EE009AA391 /* RxCocoa in Frameworks */,
 				2FD2D3BB26A07603009AA391 /* SnapKit in Frameworks */,
 				2FD2D3B426A075EE009AA391 /* RxRelay in Frameworks */,
+				2FB793C826A1839E00FAAF50 /* RxSwiftExt in Frameworks */,
 				2FD2D3B026A075EE009AA391 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,7 +168,11 @@
 		2F892E1126A0D6FA0012150F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				2F9A8C6626A0BEB200BCBA76 /* HistoryResponse.json */,
+				2F892E0926A0CC5F0012150F /* ArchiveActivityResponse.json */,
+				2F892E1826A0DDAF0012150F /* ResetResponse.json */,
 				2F892E1226A0D7000012150F /* MockClient.swift */,
+				2FB793C926A18F0700FAAF50 /* MockData.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -231,10 +243,8 @@
 		2F9A8C6126A091C800BCBA76 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				2FB793C226A17ACB00FAAF50 /* HistoryViewModelTests.swift */,
 				2F9A8C6226A091D600BCBA76 /* HistoryRepositoryTests.swift */,
-				2F9A8C6626A0BEB200BCBA76 /* HistoryResponse.json */,
-				2F892E0926A0CC5F0012150F /* ArchiveActivityResponse.json */,
-				2F892E1826A0DDAF0012150F /* ResetResponse.json */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -327,7 +337,8 @@
 			children = (
 				2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */,
 				2FD2D3C126A07DEA009AA391 /* UIStackView.swift */,
-				2FD2D3C326A07DF7009AA391 /* Result+Single.swift */,
+				2FD2D3C326A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift */,
+				2FB793C426A17C5700FAAF50 /* ObservableType+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -364,6 +375,7 @@
 				2FD2D3B326A075EE009AA391 /* RxRelay */,
 				2FD2D3B526A075EE009AA391 /* RxCocoa */,
 				2FD2D3BA26A07603009AA391 /* SnapKit */,
+				2FB793C726A1839E00FAAF50 /* RxSwiftExt */,
 			);
 			productName = Aircall;
 			productReference = 2FD2D37026A07434009AA391 /* Aircall.app */;
@@ -424,6 +436,7 @@
 				2FD2D3AE26A075EE009AA391 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				2FD2D3B926A07603009AA391 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2FD2D3BC26A07620009AA391 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				2FB793C626A1839E00FAAF50 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
 			);
 			productRefGroup = 2FD2D37126A07434009AA391 /* Products */;
 			projectDirPath = "";
@@ -475,6 +488,7 @@
 				2FD2D3C626A07E10009AA391 /* HTTPClient.swift in Sources */,
 				2FD2D3C026A07DDE009AA391 /* UIViewController+Rx.swift in Sources */,
 				2F9A8C5926A0875600BCBA76 /* Activity.swift in Sources */,
+				2FB793C526A17C5700FAAF50 /* ObservableType+Extension.swift in Sources */,
 				2F9A8C5B26A0878000BCBA76 /* HistoryResponse.swift in Sources */,
 				2F9A8C5126A0860A00BCBA76 /* ActivityDetailsViewController.swift in Sources */,
 				2F9A8C4D26A085F200BCBA76 /* HistoryViewModel.swift in Sources */,
@@ -484,7 +498,7 @@
 				2F9A8C4726A083BC00BCBA76 /* HistoryCoordinator.swift in Sources */,
 				2F9A8C5526A0861A00BCBA76 /* ActivityDetailsRepository.swift in Sources */,
 				2F892E1526A0DCD90012150F /* ResetResponse.swift in Sources */,
-				2FD2D3C426A07DF7009AA391 /* Result+Single.swift in Sources */,
+				2FD2D3C426A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift in Sources */,
 				2FD2D3A826A07508009AA391 /* Context.swift in Sources */,
 				2FD2D3C826A07E1F009AA391 /* RequestBuilder.swift in Sources */,
 				2F9A8C6526A093ED00BCBA76 /* ArchiveActivityResponse.swift in Sources */,
@@ -501,10 +515,12 @@
 				2F9A8C6326A091D600BCBA76 /* HistoryRepositoryTests.swift in Sources */,
 				2FD2D3D326A07E79009AA391 /* HTTPClientTests.swift in Sources */,
 				2F892E0D26A0CCA40012150F /* Bundle+Tests.swift in Sources */,
+				2FB793C326A17ACB00FAAF50 /* HistoryViewModelTests.swift in Sources */,
 				2F892E1326A0D7000012150F /* MockClient.swift in Sources */,
 				2FD2D3D726A07E9E009AA391 /* JSONParserTests.swift in Sources */,
 				2FD2D3D126A07E6C009AA391 /* ResquestBuilderTests.swift in Sources */,
 				2F892E0826A0CB0E0012150F /* IntegrationTestsCheck.swift in Sources */,
+				2FB793CA26A18F0700FAAF50 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +780,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2FB793C626A1839E00FAAF50 /* XCRemoteSwiftPackageReference "RxSwiftExt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxSwiftExt";
+			requirement = {
+				kind = exactVersion;
+				version = 6.1.0;
+			};
+		};
 		2FD2D3AE26A075EE009AA391 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -791,6 +815,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2FB793C726A1839E00FAAF50 /* RxSwiftExt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FB793C626A1839E00FAAF50 /* XCRemoteSwiftPackageReference "RxSwiftExt" */;
+			productName = RxSwiftExt;
+		};
 		2FD2D3AF26A075EE009AA391 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2FD2D3AE26A075EE009AA391 /* XCRemoteSwiftPackageReference "RxSwift" */;

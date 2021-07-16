@@ -17,7 +17,7 @@ struct HistoryRepository {
 extension HistoryRepository {
 
     // MARK: - Live
-
+    
     static func live(
         requestBuilder: RequestBuilderType,
         client: HTTPClientType,
@@ -32,15 +32,9 @@ extension HistoryRepository {
                     .flatMap { data -> Observable<HistoryResponse> in
                         parser.processCodableResponse(from: data)
                     }
-                    .catch {
-                        if let apiError = $0 as? APIError {
-                            return .error(HistoryError(apiError: apiError))
-                        } else {
-                            return .error($0)
-                        }
-                    }
                     .asSingle()
                     .materialize()
+                    .mapFailure { HistoryError($0) }
             },
             archiveActivity: { id in
                 let endpoint = ArchiveActivityEndpoint(id: id)
@@ -50,15 +44,9 @@ extension HistoryRepository {
                     .flatMap { data -> Observable<ArchiveActivityResponse> in
                         parser.processCodableResponse(from: data)
                     }
-                    .catch {
-                        if let apiError = $0 as? APIError {
-                            return .error(HistoryError(apiError: apiError))
-                        } else {
-                            return .error($0)
-                        }
-                    }
                     .asSingle()
                     .materialize()
+                    .mapFailure { HistoryError($0) }
             },
             reset: {
                 let endpoint = ResetEndpoint()
@@ -68,22 +56,20 @@ extension HistoryRepository {
                     .flatMap { data -> Observable<ResetResponse> in
                         parser.processCodableResponse(from: data)
                     }
-                    .catch {
-                        if let apiError = $0 as? APIError {
-                            return .error(HistoryError(apiError: apiError))
-                        } else {
-                            return .error($0)
-                        }
-                    }
                     .asSingle()
                     .materialize()
+                    .mapFailure { HistoryError($0) }
             }
         )
     }
 }
 
 private extension HistoryError {
-    init(apiError: APIError) {
+    init(_ error: Error) {
+        guard let apiError = error as? APIError else {
+            self = .generalError(error)
+            return
+        }
         switch apiError {
         case .networkProblem:
             self = .dataSourceAvailabilityProblem(apiError)
