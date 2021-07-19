@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Context is our dependencies bag 🎒
+/// Context is our bag of dependencies 🎒
 /// This is the place where you'll want to instanciate all of your dependencies
 /// in order to inject them everywhere and keep a perfect testable/scalable architecture 👌
 final class Context {

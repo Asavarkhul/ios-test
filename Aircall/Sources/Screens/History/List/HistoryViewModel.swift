@@ -137,12 +137,31 @@ private extension Activity {
     init(response: ActivityResponse) {
         self.id = "\(response.id)"
         self.createdAt = response.createdAt
-        self.direction = response.direction.rawValue
+        self.direction = .init(direction: response.direction)
         self.from = response.from
         self.to = response.to
         self.via = response.via
         self.duration = response.duration
         self.isArchived = response.isArchived
-        self.callType = response.callType
+        self.callType = .init(callType: response.callType)
+    }
+}
+
+private extension Activity.Direction {
+    init(direction: ActivityResponse.Direction) {
+        switch direction {
+        case .inbound: self = .inbound
+        case .outbound: self = .outbound
+        }
+    }
+}
+
+private extension Activity.CallType {
+    init(callType: ActivityResponse.CallType) {
+        switch callType {
+        case .answered: self = .answered
+        case .missed: self = .missed
+        case .voicemail: self = .voicemail
+        }
     }
 }

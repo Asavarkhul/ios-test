@@ -8,7 +8,7 @@ I made few assumptions when developing it, trying to focus on:
 
 1. **Scalable architecture** - which is why I divided it into three layers:
 - `Network module` responsible for networking part;
-- ...
+- `Repositories` responsible for fetching/emiting data through `Network` and dispose it to top layer;
 - `Views` + `ViewModels` for presentation.
 
 2. **Robust development** - ...

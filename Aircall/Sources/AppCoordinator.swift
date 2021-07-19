@@ -32,10 +32,6 @@ final class AppCoordinator {
         appDelegate.window!.rootViewController = UIViewController()
         appDelegate.window!.makeKeyAndVisible()
 
-        if ProcessInfo.processInfo.environment["IS_RUNNING_UNIT_TESTS"] == "YES" {
-            return
-        }
-
         showActivities()
     }
 

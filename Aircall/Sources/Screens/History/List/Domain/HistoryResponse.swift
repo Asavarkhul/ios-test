@@ -19,7 +19,7 @@ struct ActivityResponse: Decodable {
     let via: String
     let duration: String
     let isArchived: Bool
-    let callType: String
+    let callType: CallType
 
     enum Direction: String, Decodable {
         case inbound

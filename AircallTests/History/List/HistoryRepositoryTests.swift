@@ -9,7 +9,7 @@ import XCTest
 import RxSwift
 @testable import Aircall
 
-final class HistoryRepositoryTests: XCTestCase {
+final class HistoryRepositoryTests: TestCase {
 
     // MARK: - Properties
 

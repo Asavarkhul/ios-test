@@ -9,7 +9,7 @@ import XCTest
 import RxSwift
 @testable import Aircall
 
-final class HistoryViewModelTests: XCTestCase {
+final class HistoryViewModelTests: TestCase {
 
     // MARK: - Properties
 
@@ -82,12 +82,17 @@ final class HistoryViewModelTests: XCTestCase {
         let inputs = makeMockInputs()
         let outputs = viewModel.transform(inputs: inputs)
 
+        var counter = 0
         outputs
             .activities
             .asDriverOnErrorJustComplete()
-            .drive(onNext: {
-                XCTAssertFalse($0.isEmpty)
-                XCTAssertFalse($0.contains(where: { $0.isArchived }))
+            .drive(onNext: { activities in
+                if counter == 0 {
+                    XCTAssertEqual(activities.count, 5)
+                } else if counter == 1 {
+                    XCTAssertEqual(activities.count, 6)
+                }
+                counter+=1
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
