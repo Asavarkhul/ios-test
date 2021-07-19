@@ -19,7 +19,7 @@ final class HistoryCoordinator {
 
     init(
         presenter: UIWindow,
-        context: Context
+        context: ContextType
     ) {
         self.presenter = presenter
         self.navigationController = UINavigationController(nibName: nil, bundle: nil)

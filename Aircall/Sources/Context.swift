@@ -10,7 +10,15 @@ import Foundation
 /// Context is our bag of dependencies 🎒
 /// This is the place where you'll want to instanciate all of your dependencies
 /// in order to inject them everywhere and keep a perfect testable/scalable architecture 👌
-final class Context {
+protocol ContextType: AnyObject {
+    var client: HTTPClientType { get }
+    var requestBuilder: RequestBuilderType { get }
+    var jsonParser: JSONParserType { get }
+
+    static func build() -> ContextType
+}
+
+final class Context: ContextType {
 
     // MARK: - Properties
 
@@ -28,7 +36,7 @@ final class Context {
 
     // MARK: - Build
 
-    class func build() -> Context {
+    static func build() -> ContextType {
         return Context()
     }
 }

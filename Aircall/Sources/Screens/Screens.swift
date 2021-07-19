@@ -11,11 +11,11 @@ final class Screens {
 
     // MARK: - Properties
 
-    private let context: Context
+    private let context: ContextType
     
     // MARK: - Initializer
 
-    init(context: Context) {
+    init(context: ContextType) {
         self.context = context
     }
 }

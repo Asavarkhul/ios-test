@@ -1,12 +1,12 @@
 /* 
-  Localizable.strings
+ Localizable.strings
   Aircall
 
   Created by Bertrand BLOC'H on 18/07/2021.
   
 */
 
-"mobile/history/title.text" = "History";
+"mobile/history/title.text" = "History 🧑‍🏫";
 "mobile/history/empty-history.text" = "No one loves you 😮";
 "mobile/history/activity-inboud-via.text" = "on $var";
 "mobile/history/activity-outbound-via.text" = "made by $var";

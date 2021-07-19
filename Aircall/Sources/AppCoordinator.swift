@@ -12,14 +12,14 @@ final class AppCoordinator {
     // MARK: - Private properties
 
     private unowned var appDelegate: AppDelegate
-    private let context: Context
+    private let context: ContextType
     private var historyCoordinator: HistoryCoordinator?
 
     // MARK: - Initializer
 
     init(
         appDelegate: AppDelegate,
-        context: Context
+        context: ContextType
     ) {
         self.appDelegate = appDelegate
         self.context = context

@@ -20,7 +20,7 @@ final class TranslatorTests: XCTestCase {
 
     func testThatValueIsCorrectlyReturned_WhenKeyIsFoundInFile() {
         try! Translator.configure(for: "Localizable", in: .test)
-        XCTAssertEqual(Translator.shared.translation(for: "mobile/history/title.text"), "History")
+        XCTAssertEqual(Translator.shared.translation(for: "mobile/history/title.text"), "History 🧑‍🏫")
     }
 
     func testWhenKeyIsNotFound_ItReturnItself() {

@@ -64,7 +64,41 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenStartTrigger_WithFailure_ItReturnsAlertDataSource() {
-        
+        let expectation = self.expectation(description: "Returned activities")
+        expectation.isInverted = true
+        let alertExpectation = self.expectation(description: "Returned Alert Data Source")
+        repository = .failureMock()
+
+        let viewModel = HistoryViewModel(
+            repository: repository,
+            actions: .init(
+                onSelectActivity: { _ in }
+            )
+        )
+
+        let inputs = makeMockInputs()
+        let outputs = viewModel.transform(inputs: inputs)
+
+        outputs
+            .activities
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { _ in
+                XCTFail()
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        outputs
+            .alertDataSource
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { _ in
+                alertExpectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        startTrigger.onNext(())
+
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func testGivenAHistoryViewModel_WhenReset_WithSuccess_ItReturnsActivities() {
@@ -104,7 +138,40 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenReset_WithFailure_ItReturnsAlertDataSource() {
-        
+        let expectation = self.expectation(description: "Returned activities")
+        let alertExpectation = self.expectation(description: "Returned Alert Data Source")
+        repository = .failureResetMock()
+
+        let viewModel = HistoryViewModel(
+            repository: repository,
+            actions: .init(
+                onSelectActivity: { _ in }
+            )
+        )
+
+        let inputs = makeMockInputs()
+        let outputs = viewModel.transform(inputs: inputs)
+
+        outputs
+            .activities
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { activities in
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        outputs
+            .alertDataSource
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { _ in
+                alertExpectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        startTrigger.onNext(())
+        didPressReset.onNext(())
+
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func testGivenAHistoryViewModel_WhenArchiveAnActivity_WithSuccess_ItReturnsFilteredActivities() {
@@ -144,7 +211,40 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenArchiveAnActivity_WithFailure_ItReturnsAlertDataSource() {
-        
+        let expectation = self.expectation(description: "Returned activities")
+        let alertExpectation = self.expectation(description: "Returned Alert Data Source")
+        repository = .failureArchiveMock()
+
+        let viewModel = HistoryViewModel(
+            repository: repository,
+            actions: .init(
+                onSelectActivity: { _ in }
+            )
+        )
+
+        let inputs = makeMockInputs()
+        let outputs = viewModel.transform(inputs: inputs)
+
+        outputs
+            .activities
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { activities in
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        outputs
+            .alertDataSource
+            .asDriverOnErrorJustComplete()
+            .drive(onNext: { _ in
+                alertExpectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        startTrigger.onNext(())
+        didArchiveActivtyAtIndex.onNext(0)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func testGivenAHistoryViewModel_WhenSelectAnActivity_ItSendSelectAction() {
@@ -229,6 +329,22 @@ private extension HistoryRepository {
     static func failureMock() -> HistoryRepository {
         return .init(
             getHistory: { .just(.failure(HistoryError.generalError(nil))) },
+            archiveActivity: { _ in .just(.failure(HistoryError.generalError(nil))) },
+            reset: { .just(.failure(HistoryError.generalError(nil))) }
+        )
+    }
+
+    static func failureResetMock() -> HistoryRepository {
+        return .init(
+            getHistory: { .just(.success(mockHistoryResponse)) },
+            archiveActivity: { _ in .just(.success(mockArchiveActivityResponse)) },
+            reset: { .just(.failure(HistoryError.generalError(nil))) }
+        )
+    }
+
+    static func failureArchiveMock() -> HistoryRepository {
+        return .init(
+            getHistory: { .just(.success(mockHistoryResponse)) },
             archiveActivity: { _ in .just(.failure(HistoryError.generalError(nil))) },
             reset: { .just(.failure(HistoryError.generalError(nil))) }
         )

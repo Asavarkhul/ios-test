@@ -16,6 +16,12 @@ struct HistoryViewModel {
     let repository: HistoryRepository
     let actions: Actions
 
+    // MARK: - Private
+
+    private let translator = Current.translator
+    private let fallBackSubject = PublishSubject<Void>()
+    private let dialogDataSourceSubject = PublishSubject<DialogAlertDataSource>()
+
     // MARK: - Actions
 
     struct Actions {
@@ -35,6 +41,7 @@ struct HistoryViewModel {
 
     struct Outputs {
         let activities: Observable<[Activity]>
+        let alertDataSource: Observable<DialogAlertDataSource>
         let isLoading: Observable<Bool>
         let actions: Observable<Void>
     }
@@ -51,12 +58,12 @@ struct HistoryViewModel {
                 onLoading: { isLoadingSubject.onNext($0) },
                 onError: { makeDataSource(for: $0) }
             )
-            .share()
 
         let originalDataSource: Observable<[Activity]> = getHistory
             .map {
                 $0.map { Activity(response: $0) }
             }
+            .share()
         
         let resetedDataSource: Observable<[Activity]> = inputs
             .didPressReset
@@ -73,14 +80,22 @@ struct HistoryViewModel {
                     return activity
                 }
             }
+            .share()
 
         let dataSource = Observable.merge(
             originalDataSource,
             resetedDataSource
         )
 
+        let fallBackDataSource = fallBackSubject.withLatestFrom(dataSource).share()
+
+        let upToDateDataSource = Observable.merge(
+            dataSource,
+            fallBackDataSource
+        )
+
         let archiveActivity = Observable
-            .combineLatest(inputs.didArchiveActivtyAtIndex, dataSource)
+            .combineLatest(inputs.didArchiveActivtyAtIndex, upToDateDataSource)
             .map { index, activities in
                 guard activities.indices.contains(index) else { return "" }
                 return activities[index].id
@@ -92,7 +107,7 @@ struct HistoryViewModel {
             )
 
         let archivedDataSource: Observable<[Activity]> = Observable
-            .combineLatest(archiveActivity, dataSource)
+            .combineLatest(archiveActivity, upToDateDataSource)
             .map { archiveActivityResponse, activities in
                 var activities = activities
                 guard let index = activities.firstIndex(
@@ -105,7 +120,7 @@ struct HistoryViewModel {
             }
 
         let selectActivity = Observable
-            .combineLatest(inputs.didPressActivityAtIndex, dataSource)
+            .combineLatest(inputs.didPressActivityAtIndex, upToDateDataSource)
             .do(onNext: { index, activities in
                 guard activities.indices.contains(index) else { return }
                 self.actions.onSelectActivity(activities[index])
@@ -113,7 +128,7 @@ struct HistoryViewModel {
             .mapToVoid()
 
         let displayedDataSource = Observable.merge(
-            dataSource,
+            upToDateDataSource,
             archivedDataSource
         ).map {
             $0.filter { !$0.isArchived }
@@ -121,6 +136,7 @@ struct HistoryViewModel {
 
         return .init(
             activities: displayedDataSource,
+            alertDataSource: dialogDataSourceSubject,
             isLoading: isLoadingSubject,
             actions: selectActivity
         )
@@ -129,7 +145,50 @@ struct HistoryViewModel {
     // MARK: - Helpers
 
     private func makeDataSource(for error: Error) {
-        
+        if let error = error as? HistoryError {
+            makeContextualizedError(with: getErrorMessage(from: error))
+        } else {
+            makeContextualizedError(with: Constants.commonAlertMessage)
+        }
+    }
+
+    private func getErrorMessage(from error: HistoryError) -> String {
+        switch error {
+        case .dataConsistencyProblem: return Constants.dataConsistencyProblemMessage
+        case .dataSourceAvailabilityProblem: return Constants.dataConsistencyProblemMessage
+        case .generalError: return Constants.generalErrorMessage
+        }
+    }
+
+    private func makeContextualizedError(with message: String) {
+        let alertMessage = AlertMessage(
+            localizedTitle: Constants.commonAlertTitle,
+            localizedMessage: message,
+            localizedCancelActionTitle: Constants.commonOkTitle
+        )
+
+        let closeAction = {
+            fallBackSubject.onNext(())
+        }
+
+        let alertDataSource = DialogAlertDataSource(
+            message: alertMessage,
+            action: closeAction
+        )
+
+        dialogDataSourceSubject.onNext(alertDataSource)
+    }
+}
+
+private extension HistoryViewModel {
+    enum Constants {
+        static var commonAlertTitle: String { Current.translator.translation(for: "mobile/error/common-alert-title.text") }
+        static var commonAlertMessage: String { Current.translator.translation(for: "mobile/error/common-alert-message.text") }
+        static var commonOkTitle: String { Current.translator.translation(for: "mobile/error/common-alert-action.text") }
+        static var failToArchiveMessage: String { Current.translator.translation(for: "mobile/error/fail-to-archive-activity-message.text") }
+        static var dataConsistencyProblemMessage: String { Current.translator.translation(for: "mobile/error/data-consistency-problem-essage.text") }
+        static var dataSourceAvailabilityProblemMessage: String { Current.translator.translation(for: "mobile/error/dataSource-availability-problem-essage.text") }
+        static var generalErrorMessage: String { Current.translator.translation(for: "mobile/error/general-error-message.text") }
     }
 }
 

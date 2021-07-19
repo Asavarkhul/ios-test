@@ -13,7 +13,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
 
     var window: UIWindow?
-    private var context: Context!
+    private var context: ContextType!
     private var coordinator: AppCoordinator!
 
     // MARK: - UIApplicationDelegate

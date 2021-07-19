@@ -11,43 +11,46 @@ import SnapshotTesting
 
 final class ActivityCellTests: TestCase {
 
+    // MARK: - Properties
+
+    private var cell: ActivityTableViewCell!
+
+    // MARK: - Setup
+
     override func setUp() {
         super.setUp()
         isRecording = false
+        cell = ActivityTableViewCell()
     }
 
+    // MARK: - Tests
+
     func testCreatesMissedInboud() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .missedInboud)
         snapshotCell(cell)
     }
 
     func testCreatesMissedOutbound() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .missedOutbound)
         snapshotCell(cell)
     }
 
     func testCreatesAnsweredInbound() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .answeredInbound)
         snapshotCell(cell)
     }
 
     func testCreatesAnsweredOutbound() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .answeredOutbound)
         snapshotCell(cell)
     }
 
     func testCreatesVoiceMailInbound() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .voicemailInbound)
         snapshotCell(cell)
     }
 
     func testCreatesVoicemailOutbound() {
-        let cell = ActivityTableViewCell()
         cell.configure(with: .voicemailOutbound)
         snapshotCell(cell)
     }

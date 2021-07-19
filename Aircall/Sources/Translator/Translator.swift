@@ -36,7 +36,7 @@ final class Translator: TranslatorType {
     // MARK: - Properties
 
     static var configuredTranslator: TranslatorType?
-    static let failbackTranslator: TranslatorType = KeyValueTranslator()
+    static let failbackTranslator: TranslatorType = FailbackTranslator()
     static var shared: TranslatorType { configuredTranslator ?? failbackTranslator }
 
     private static var bundleStorages: BundleStorageType?
@@ -64,7 +64,7 @@ final class Translator: TranslatorType {
     }
 }
 
-private final class KeyValueTranslator: TranslatorType {
+private final class FailbackTranslator: TranslatorType {
     init() {}
 
     func translation(for key: String) -> String {

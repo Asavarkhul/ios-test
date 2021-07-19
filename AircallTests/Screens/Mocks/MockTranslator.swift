@@ -12,7 +12,6 @@ final class MockTranslator: TranslatorType {
 
     // MARK: - Properties
 
-    private(set) var selectedLocale: Locale = .france
     private var translations: Translations!
 
     // MARK: - Initializer
@@ -27,14 +26,6 @@ final class MockTranslator: TranslatorType {
 
     // MARK: - Configuration
 
-    public func select(locale: Locale) throws {
-        selectedLocale = locale
-    }
-
-    public func saveAndLoad(translations: Translations) throws {
-        self.translations = translations
-    }
-
     public func translation(for key: String) -> String {
         translations[key] ?? key
     }
@@ -48,10 +39,6 @@ final class MockTranslator: TranslatorType {
         }
         return translations
     }
-}
-
-private extension Locale {
-    static let france = Locale(identifier: "En")
 }
 
 extension MockTranslator {
