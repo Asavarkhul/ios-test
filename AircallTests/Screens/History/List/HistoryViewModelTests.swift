@@ -16,7 +16,7 @@ final class HistoryViewModelTests: TestCase {
     private var disposeBag: DisposeBag!
     private var startTrigger: PublishSubject<Void>!
     private var didSelectActivityAtIndex: PublishSubject<Int>!
-    private var didArchiveActivtyAtIndex: PublishSubject<Int>!
+    private var didArchiveActivtyAtIndex: PublishSubject<(index: Int, completionHandler: (Bool) -> Void)>!
     private var didPressReset: PublishSubject<Void>!
 
     private var repository: HistoryRepository!
@@ -28,14 +28,14 @@ final class HistoryViewModelTests: TestCase {
         disposeBag = .init()
         startTrigger = PublishSubject<Void>()
         didSelectActivityAtIndex = PublishSubject<Int>()
-        didArchiveActivtyAtIndex = PublishSubject<Int>()
+        didArchiveActivtyAtIndex = PublishSubject<(index: Int, completionHandler: (Bool) -> Void)>()
         didPressReset = PublishSubject<Void>()
     }
 
     // MARK: - Tests
 
     func testGivenAHistoryViewModel_WhenStartTrigger_WithSuccess_ItReturnsActivities() {
-        let expectation = self.expectation(description: "Returned activities")
+        let expectation = self.expectation(description: "Returned items")
         repository = .successMock()
 
         let viewModel = HistoryViewModel(
@@ -49,11 +49,10 @@ final class HistoryViewModelTests: TestCase {
         let outputs = viewModel.transform(inputs: inputs)
 
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
             .drive(onNext: {
                 XCTAssertFalse($0.isEmpty)
-                XCTAssertFalse($0.contains(where: { $0.isArchived }))
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
@@ -64,7 +63,7 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenStartTrigger_WithFailure_ItReturnsAlertDataSource() {
-        let expectation = self.expectation(description: "Returned activities")
+        let expectation = self.expectation(description: "Returned items")
         expectation.isInverted = true
         let alertExpectation = self.expectation(description: "Returned Alert Data Source")
         repository = .failureMock()
@@ -80,7 +79,7 @@ final class HistoryViewModelTests: TestCase {
         let outputs = viewModel.transform(inputs: inputs)
 
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
             .drive(onNext: { _ in
                 XCTFail()
@@ -102,8 +101,8 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenReset_WithSuccess_ItReturnsActivities() {
-        let expectation = self.expectation(description: "Returned activities")
-        expectation.expectedFulfillmentCount = 2 // `activities` will emit 2 times.
+        let expectation = self.expectation(description: "Returned items")
+        expectation.expectedFulfillmentCount = 2 // `items` will emit 2 times.
         repository = .successMock()
 
         let viewModel = HistoryViewModel(
@@ -118,13 +117,13 @@ final class HistoryViewModelTests: TestCase {
 
         var counter = 0
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
-            .drive(onNext: { activities in
+            .drive(onNext: { items in
                 if counter == 0 {
-                    XCTAssertEqual(activities.count, 5)
+                    XCTAssertEqual(items.count, 5)
                 } else if counter == 1 {
-                    XCTAssertEqual(activities.count, 6)
+                    XCTAssertEqual(items.count, 6)
                 }
                 counter+=1
                 expectation.fulfill()
@@ -138,7 +137,7 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenReset_WithFailure_ItReturnsAlertDataSource() {
-        let expectation = self.expectation(description: "Returned activities")
+        let expectation = self.expectation(description: "Returned items")
         let alertExpectation = self.expectation(description: "Returned Alert Data Source")
         repository = .failureResetMock()
 
@@ -153,9 +152,9 @@ final class HistoryViewModelTests: TestCase {
         let outputs = viewModel.transform(inputs: inputs)
 
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
-            .drive(onNext: { activities in
+            .drive(onNext: { _ in
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
@@ -175,8 +174,8 @@ final class HistoryViewModelTests: TestCase {
     }
 
     func testGivenAHistoryViewModel_WhenArchiveAnActivity_WithSuccess_ItReturnsFilteredActivities() {
-        let expectation = self.expectation(description: "Returned activities")
-        expectation.expectedFulfillmentCount = 2 // `activities` will emit 2 times.
+        let expectation = self.expectation(description: "Returned items")
+        expectation.expectedFulfillmentCount = 3 // `items` will emit 2 times.
         repository = .successMock()
 
         let viewModel = HistoryViewModel(
@@ -191,27 +190,35 @@ final class HistoryViewModelTests: TestCase {
 
         var counter = 0
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
-            .drive(onNext: { activities in
+            .drive(onNext: { items in
+                print(items.count)
                 if counter == 0 {
-                    XCTAssertEqual(activities.count, 5)
+                    XCTAssertEqual(items.count, 5)
                 } else if counter == 1 {
-                    XCTAssertEqual(activities.count, 4)
+                    XCTAssertEqual(items.count, 4)
                 }
                 counter+=1
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
 
+        outputs
+            .actions
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+
         startTrigger.onNext(())
-        didArchiveActivtyAtIndex.onNext(0)
+        didArchiveActivtyAtIndex.onNext((0, {_ in}))
+        didArchiveActivtyAtIndex.onNext((0, {_ in}))
 
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func testGivenAHistoryViewModel_WhenArchiveAnActivity_WithFailure_ItReturnsAlertDataSource() {
-        let expectation = self.expectation(description: "Returned activities")
+        let expectation = self.expectation(description: "Returned items")
         let alertExpectation = self.expectation(description: "Returned Alert Data Source")
         repository = .failureArchiveMock()
 
@@ -226,9 +233,9 @@ final class HistoryViewModelTests: TestCase {
         let outputs = viewModel.transform(inputs: inputs)
 
         outputs
-            .activities
+            .items
             .asDriverOnErrorJustComplete()
-            .drive(onNext: { activities in
+            .drive(onNext: { _ in
                 expectation.fulfill()
             })
             .disposed(by: disposeBag)
@@ -241,8 +248,14 @@ final class HistoryViewModelTests: TestCase {
             })
             .disposed(by: disposeBag)
 
+        outputs
+            .actions
+            .asDriverOnErrorJustComplete()
+            .drive()
+            .disposed(by: disposeBag)
+
         startTrigger.onNext(())
-        didArchiveActivtyAtIndex.onNext(0)
+        didArchiveActivtyAtIndex.onNext((0, {_ in}))
 
         waitForExpectations(timeout: 1.0, handler: nil)
     }

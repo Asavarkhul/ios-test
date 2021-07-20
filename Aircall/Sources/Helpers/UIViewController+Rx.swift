@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIViewController {
-    var viewIsLoaded: Observable<Void> {
-        base.rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).map { _ in }.take(1)
+    var viewWillAppear: Observable<Void> {
+        base.rx.sentMessage(#selector(UIViewController.viewWillAppear(_:))).mapToVoid()
     }
 }

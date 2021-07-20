@@ -9,6 +9,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum HistoryItems {
+    case activity(ActivityCellViewModel)
+}
+
 struct HistoryViewModel {
 
     // MARK: - Properties
@@ -19,7 +23,8 @@ struct HistoryViewModel {
     // MARK: - Private
 
     private let translator = Current.translator
-    private let fallBackSubject = PublishSubject<Void>()
+    private let failBackSubject = PublishSubject<Void>()
+    private let archivedDataSource = PublishSubject<[Activity]>()
     private let dialogDataSourceSubject = PublishSubject<DialogAlertDataSource>()
 
     // MARK: - Actions
@@ -33,14 +38,15 @@ struct HistoryViewModel {
     struct Inputs {
         let startTrigger: Observable<Void>
         let didPressActivityAtIndex: Observable<Int>
-        let didArchiveActivtyAtIndex: Observable<Int>
+        let didArchiveActivtyAtIndex: Observable<(index: Int, completionHandler: (Bool) -> Void)>
         let didPressReset: Observable<Void>
     }
 
     // MARK: - Outputs
 
     struct Outputs {
-        let activities: Observable<[Activity]>
+        let title: Observable<String>
+        let items: Observable<[HistoryItems]>
         let alertDataSource: Observable<DialogAlertDataSource>
         let isLoading: Observable<Bool>
         let actions: Observable<Void>
@@ -59,12 +65,10 @@ struct HistoryViewModel {
                 onError: { makeDataSource(for: $0) }
             )
 
-        let originalDataSource: Observable<[Activity]> = getHistory
-            .map {
-                $0.map { Activity(response: $0) }
-            }
+        let originalDataSource = getHistory
+            .map { $0.map { Activity(response: $0) } }
             .share()
-        
+
         let resetedDataSource: Observable<[Activity]> = inputs
             .didPressReset
             .performRequest(
@@ -84,31 +88,66 @@ struct HistoryViewModel {
 
         let dataSource = Observable.merge(
             originalDataSource,
-            resetedDataSource
+            resetedDataSource,
+            archivedDataSource
         )
+        .share()
 
-        let fallBackDataSource = fallBackSubject.withLatestFrom(dataSource).share()
+        let failBackDataSource = failBackSubject
+            .withLatestFrom(dataSource)
 
         let upToDateDataSource = Observable.merge(
             dataSource,
-            fallBackDataSource
+            failBackDataSource
         )
+        .share()
 
-        let archiveActivity = Observable
-            .combineLatest(inputs.didArchiveActivtyAtIndex, upToDateDataSource)
-            .map { index, activities in
-                guard activities.indices.contains(index) else { return "" }
-                return activities[index].id
+        let archiveActivityRequest: ((activityID: String, completionHandler: (Bool) -> Void))
+            -> Single<Result<ArchiveActivityResponse, Swift.Error>> = { data -> Single<Result<ArchiveActivityResponse, Swift.Error>> in
+            return self.repository.archiveActivity(data.activityID)
+                .do(onSuccess: { result in
+                    switch result {
+                    case .success:
+                        data.completionHandler(true)
+                    case .failure:
+                        data.completionHandler(false)
+                    }
+                })
+        }
+
+        let selectActivityAction = Observable
+            .zip(inputs.didPressActivityAtIndex, upToDateDataSource)
+            .do(onNext: { index, activities in
+                guard activities.indices.contains(index) else { return }
+                DispatchQueue.main.async {
+                    self.actions.onSelectActivity(activities[index])
+                }
+            })
+            .mapToVoid()
+
+        let dataSourceWithoutArchivedActivities = upToDateDataSource
+            .map { $0.filter { !$0.isArchived } }
+
+        let archiveActivityAction = inputs.didArchiveActivtyAtIndex
+            .withLatestFrom(dataSourceWithoutArchivedActivities) { (archiveActivity: $0, activities: $1) }
+            .filter {
+                if $0.activities.indices.contains($0.archiveActivity.index) {
+                    return true
+                } else {
+                    $0.archiveActivity.completionHandler(false)
+                    return false
+                }
+            }
+            .map {
+                (activityID: $0.activities[$0.archiveActivity.index].id, completionHandler: $0.archiveActivity.completionHandler)
             }
             .performRequest(
-                repository.archiveActivity,
+                archiveActivityRequest,
                 onLoading: { isLoadingSubject.onNext($0) },
                 onError: { makeDataSource(for: $0) }
             )
-
-        let archivedDataSource: Observable<[Activity]> = Observable
-            .combineLatest(archiveActivity, upToDateDataSource)
-            .map { archiveActivityResponse, activities in
+            .withLatestFrom(dataSourceWithoutArchivedActivities) { (archiveActivity: $0, dataSource: $1) }
+            .map { archiveActivityResponse, activities -> [Activity] in
                 var activities = activities
                 guard let index = activities.firstIndex(
                     where: { $0.id == "\(archiveActivityResponse.id)" }
@@ -117,28 +156,27 @@ struct HistoryViewModel {
                 }
                 activities[index].archive()
                 return activities
-            }
-
-        let selectActivity = Observable
-            .combineLatest(inputs.didPressActivityAtIndex, upToDateDataSource)
-            .do(onNext: { index, activities in
-                guard activities.indices.contains(index) else { return }
-                self.actions.onSelectActivity(activities[index])
+            }.do(onNext: {
+                archivedDataSource.onNext(($0))
             })
             .mapToVoid()
 
-        let displayedDataSource = Observable.merge(
-            upToDateDataSource,
-            archivedDataSource
-        ).map {
-            $0.filter { !$0.isArchived }
-        }
+        let displayedDataSource: Observable<[HistoryItems]> = dataSourceWithoutArchivedActivities
+            .map { $0.map { .activity(.init(activity: $0)) } }
+
+        let title = Observable.just(Constants.title)
+
+        let actions = Observable.merge(
+            selectActivityAction,
+            archiveActivityAction
+        )
 
         return .init(
-            activities: displayedDataSource,
+            title: title,
+            items: displayedDataSource,
             alertDataSource: dialogDataSourceSubject,
             isLoading: isLoadingSubject,
-            actions: selectActivity
+            actions: actions
         )
     }
 
@@ -168,7 +206,7 @@ struct HistoryViewModel {
         )
 
         let closeAction = {
-            fallBackSubject.onNext(())
+            failBackSubject.onNext(())
         }
 
         let alertDataSource = DialogAlertDataSource(
@@ -182,6 +220,7 @@ struct HistoryViewModel {
 
 private extension HistoryViewModel {
     enum Constants {
+        static var title: String { Current.translator.translation(for: "mobile/history/title.text") }
         static var commonAlertTitle: String { Current.translator.translation(for: "mobile/error/common-alert-title.text") }
         static var commonAlertMessage: String { Current.translator.translation(for: "mobile/error/common-alert-message.text") }
         static var commonOkTitle: String { Current.translator.translation(for: "mobile/error/common-alert-action.text") }

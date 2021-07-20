@@ -46,6 +46,7 @@
 		2FB793C526A17C5700FAAF50 /* ObservableType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB793C426A17C5700FAAF50 /* ObservableType+Extension.swift */; };
 		2FB793C826A1839E00FAAF50 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB793C726A1839E00FAAF50 /* RxSwiftExt */; };
 		2FB793CA26A18F0700FAAF50 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB793C926A18F0700FAAF50 /* MockData.swift */; };
+		2FCBA33026A60A030024ACC4 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBA32F26A60A030024ACC4 /* UITableViewCell+Extension.swift */; };
 		2FD2D37426A07434009AA391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD2D37326A07434009AA391 /* AppDelegate.swift */; };
 		2FD2D37D26A07435009AA391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FD2D37C26A07435009AA391 /* Assets.xcassets */; };
 		2FD2D38026A07435009AA391 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD2D37E26A07435009AA391 /* LaunchScreen.storyboard */; };
@@ -130,6 +131,7 @@
 		2FB793C226A17ACB00FAAF50 /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		2FB793C426A17C5700FAAF50 /* ObservableType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+Extension.swift"; sourceTree = "<group>"; };
 		2FB793C926A18F0700FAAF50 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		2FCBA32F26A60A030024ACC4 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		2FD2D37026A07434009AA391 /* Aircall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aircall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD2D37326A07434009AA391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FD2D37C26A07435009AA391 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		2FD2D3AD26A07547009AA391 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2FCBA32F26A60A030024ACC4 /* UITableViewCell+Extension.swift */,
 				2FD2D3BF26A07DDE009AA391 /* UIViewController+Rx.swift */,
 				2FD2D3C126A07DEA009AA391 /* UIStackView.swift */,
 				2FD2D3C326A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift */,
@@ -455,9 +458,9 @@
 		2FE7B39826A599A4007BD5AD /* Alert */ = {
 			isa = PBXGroup;
 			children = (
+				2FE7B39B26A59A33007BD5AD /* DialogAlertPresenter.swift */,
 				2FE7B39926A599BC007BD5AD /* DialogAlertDataSource.swift */,
 				2FE7B39D26A59F30007BD5AD /* AlertMessage.swift */,
-				2FE7B39B26A59A33007BD5AD /* DialogAlertPresenter.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				2FD3419126A224B6007795EF /* ActivityTableViewCell.swift in Sources */,
 				2FD3419326A22DA6007795EF /* ActivityCellViewModel.swift in Sources */,
 				2F9A8C5326A0861200BCBA76 /* ActivityDetailsViewModel.swift in Sources */,
+				2FCBA33026A60A030024ACC4 /* UITableViewCell+Extension.swift in Sources */,
 				2F99279D26A4C77F007559FB /* Environment.swift in Sources */,
 				2F9A8C4526A083AE00BCBA76 /* Screens.swift in Sources */,
 				2F9927AD26A579FC007559FB /* Date+Extension.swift in Sources */,

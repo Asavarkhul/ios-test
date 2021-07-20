@@ -10,7 +10,7 @@ import Foundation
 /// `Environment` is responsible to provide modules which don't necessary needs to be injected. 💉
 struct Environment {
     var translator: TranslatorType
-    var locale = { Locale(identifier: "fr_FR") }
+    var locale = { Locale(identifier: "fr_FR") } // We want an UTC+2 since it's summer time 🌞😎
 }
 
 extension Environment {

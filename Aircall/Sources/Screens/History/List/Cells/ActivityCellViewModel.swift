@@ -62,7 +62,7 @@ extension ActivityCellViewModel {
         static func dayFormat(date: String) -> String? {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Current.locale()
-            dateFormatter.dateFormat = "MMM. dd"
+            dateFormatter.dateFormat = "MMM dd"
             guard let formattedDate = Date.getDate(from: date) else {
                 assertionFailure() // We should monitor this ☝️
                 return nil
