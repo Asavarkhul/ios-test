@@ -1,146 +1,70 @@
+## Hello 👋!
 
+This is my solution to the coding exercise for the "Aircall" app.
 
+## Assumptions
 
-# Aircall - iOS Technical test
+I made few assumptions when developing it, trying to focus on:
 
-  
+1. **Scalable architecture** 
 
-## Summary
+The app is composed by different modules:
 
-  
+- `Network` - responsible for networking part. I choose to build my own, which could be easily improved, but gives a good base for making simple `GET`/`POST` requests.
+At this time it's only able to handle `httpbody` for `POST` request but a good improvement would be to handle `queryItems` too.
 
-The purpose of this test is to give you an opportunity to showcase your coding skills.
+- `Translator` - responsible for giving a way to localize the app. Since I didn't had any information about where to find some sentences I puted the ones I saw in the wireframes in 
+a `Localizable.strings` file and builded a simple tool to provide them and handle a possible localization later. For the moment there is no real localization under the hood, 
+because this V1 is not handling `Locale` but it coul be easily updated too.
 
-To doing so, you will build a small Aircall iOS app from scratch.
+- `Screens` - contains the front app, this module is developed under `MVVM` pattern, fully unit/snapshot tested in order to garanty safe scalability and avoid bad regressions.
 
-  
+2. **Robust development** - which is why I used `MVVM` + `Repository` + `Coordinator` pattern 🏋️‍♀️
 
-### General rules
+- `ViewController` \ `TableViewCell` - Responsible of managing the view state. No data/data-logic is handled here.
+- `ViewModel` - This is where the magic happens. 
+This layer is listening for events from above through `Inputs` and `transform(:)` them to `Outputs` in a nice `Rx` way. Thanks to this separation, 
+each layer can communicates with each others without having a tight coupling of responsabilities.
+- `Repository` - Responsible of providing `Data`, by hiding where it comes from. In this project it's basicaly provided by Network but it could be either from disc etc..
+- `Coordinator` - The global navigation orchester 👮🏻‍♂️
 
-- You are free to use the architecture you prefer
+3. **Leveraging Swift + RxSwift safety** - I put the attention to throw and handle errors where needed.
+I decided to use RxSwift because it also provides the perfect abstraction for errors propagation.
 
-- You are free to use the libraries you want
+4. **Unit tests** 
 
-- You are free to use UIKit or SwiftUI
+I added unit tests + snapshots for all critical parts.
+You'll see that there is also two arguments injected in the test schema:
+- `IS_RUNNING_INTEGRATION_TESTS` - if `YES` the tests for the `HTTPClient` will execute real network calls.
+- `IS_RUNNING_UNIT_TESTS` - if `YES` the main `AppCoordinator` won't load the app. It preserves speed and memory and avoid useless instantiations 👌
 
-- The app must compatible with iOS 13+
+I got a 70% of code coverage, let's discuss if I should increase it?
 
-  
+## Dependencies
 
-### Things you need to implement
+Since choosing dependencies is as important as designing a scalable architecture, I choose to use only 3 libraries.
 
-1. Display a ****list of calls**** page
+- `RxSwift` - Provides observable streams, nice to use especially through `MVVM` architecture ❤️
+- `SnapKit` - Provides a nice and easy way to work with `Auto Layout`
+- `SnapshotTesting` - Provides a cool way of making snapshot for views. Thanks to this we can keep an eye on potential `UI` regression 🔍
 
-2. Click on call from the list will redirect to ****call details**** page
+## Limitations
 
-3. You should be able to ****archive a call**** from List and Details page
+The most difficult part for me was to make decisions on where and how keeping an eye on `History` datasource before/after archiving an activity.
+A good improvment would be to have the same response than `History` one, in order to avoid making archiving logic on ViewModel side 🤷‍♂️
+That's why I also provided a `failback` datasource, in order to have a way to go back to previous state in case of failing request while archiving or reseting it.  
 
-=> Archived calls will no longer be visible from ****list of calls****
+## Completion & Time to finish
 
-  
+I worked on this project during 7 days, 3-4 hours per day. The `UI` is not finalized for me, but since you mentioned that it wasn't the priority, I did it clean and simple.
+Evaluating time to finish depends realy on the needs.. 
+- Do we want to localize the app?
+- Where those sentences come from?
+- Do we want to implement  telemetry? (We definitely should monitor some critical path)
+- Do you want to inject some ABTests?
+- Will be UI driven by backend?
 
-### Where to focus
+## Conclusion
 
-1. We will pay attention on the architecture of your app
-
-2. The quality of your tests
-
-3. The clarity and documentation of your code
-
-4. Don't pay too much attention on design stuff, it's not a criteria for us. After all, you are a developer not a designer !
-
-  
-
-List of calls |  Call details
-
-:-------------------------:|:-------------------------:
-
-![](assets/activity_feed.png) | ![](assets/call_detail.png)
-
-  
-
-### Need help ?
-
-  
-
-Don't hesitate to ask any question regarding the test at ios@aircall.io
-
-  
-
-  
-
-## API documentation
-
-  
-
-### Routes
-
-  
-
-Here is the API address: https://aircall-job.herokuapp.com.
-
-  
-
-As you can see, it's hosted on a free Heroku server, which means that the first time you will fetch the API, it will take few seconds to answer.
-
-  
-
-- ****GET**** - https://aircall-job.herokuapp.com/activities: get calls to display in the Activity Feed
-
-- ****GET**** - https://aircall-job.herokuapp.com/activities/:id: retrieve a specific call details
-
-- ****POST**** - https://aircall-job.herokuapp.com/activities/:id: update a call. The only field updatable is `is_archived (bool)`. You'll need to send a JSON in the request body:
-
-```
-
-{
-
-is_archived: true
-
-}
-
-```
-
-- ****GET**** - https://aircall-job.herokuapp.com/reset: Reset all calls to initial state (usefull if you archived all calls).
-
-  
-
-  
-
-### Call object
-
-  
-
-- ****id**** - unique ID of call
-
-- ****created_at**** - creation date
-
-- ****direction**** - `inbound` or `outbound` call
-
-- ****from**** - caller's number
-
-- ****to**** - callee's number
-
-- ****via**** - Aircall number used for the call
-
-- ****duration**** - duration of a call (in seconds)
-
-- ****is_archived**** - call is archived or not
-
-- ****call_type**** - can be a `missed`, `answered` or `voicemail` call.
-
-  
-
-  
-
-## Submission
-
-  
-You are ready, submit a pull request on this repository and ping your point of contact at Aircall.
-
-Don't forget to include a ****README**** file with the following:
-
-- Write a brief outline of the architecture of your app.
-- Explain why you decided to use each third party libraries.
-- What was the most difficult part of the challenge ?
-- Estimate your percentage of completion and how much time you would need to finish
+This project was a nice journey for me, it gaves me the opportunity to touch some parts that I'm using with already builded libraries, it's always nice to dive again in them.
+I hope you'll like it 🙇‍♂️

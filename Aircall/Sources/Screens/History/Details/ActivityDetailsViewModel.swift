@@ -9,12 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum DisplayedActivityItems {
-    case header(String)
-    case call(CallViewModel)
-    case network(NetworkViewModel)
-}
-
 struct ActivityViewModel {
 
     // MARK: - Properties
@@ -22,6 +16,12 @@ struct ActivityViewModel {
     let activity: Activity
     let actions: Actions
     let repository: ActivityRepository
+
+    enum DisplayedActivityItems {
+        case header(String)
+        case call(CallViewModel)
+        case network(NetworkViewModel)
+    }
 
     // MARK: - Private
 

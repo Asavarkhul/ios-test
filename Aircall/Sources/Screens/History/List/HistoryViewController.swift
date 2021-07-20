@@ -38,7 +38,7 @@ final class HistoryViewController: UIViewController {
         loader.hidesWhenStopped = true
         return loader
     }()
-    private var dataSource: [HistoryItems] = [] {
+    private var dataSource: [HistoryViewModel.HistoryItems] = [] {
         didSet {
             tableView.reloadData()
         }

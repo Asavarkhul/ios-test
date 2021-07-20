@@ -9,16 +9,16 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum HistoryItems {
-    case activity(ActivityCellViewModel)
-}
-
 struct HistoryViewModel {
 
     // MARK: - Properties
 
     let repository: HistoryRepository
     let actions: Actions
+
+    enum HistoryItems {
+        case activity(ActivityCellViewModel)
+    }
 
     // MARK: - Private
 

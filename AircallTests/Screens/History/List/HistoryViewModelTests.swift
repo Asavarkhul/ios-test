@@ -113,7 +113,7 @@ final class HistoryViewModelTests: TestCase {
 
     func testGivenAHistoryViewModel_WhenReset_WithSuccess_ItReturnsActivities() {
         let expectation = self.expectation(description: "Returned items")
-        expectation.expectedFulfillmentCount = 3 // `items` will emit 2 times.
+        expectation.expectedFulfillmentCount = 3
         repository = .successMock()
 
         let viewModel = HistoryViewModel(
@@ -199,7 +199,7 @@ final class HistoryViewModelTests: TestCase {
 
     func testGivenAHistoryViewModel_WhenArchiveAnActivity_WithSuccess_ItReturnsFilteredActivities() {
         let expectation = self.expectation(description: "Returned items")
-        expectation.expectedFulfillmentCount = 4 // `items` will emit 2 times.
+        expectation.expectedFulfillmentCount = 4
         repository = .successMock()
 
         let viewModel = HistoryViewModel(

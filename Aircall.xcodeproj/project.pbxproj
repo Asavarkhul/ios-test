@@ -303,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				2F892E0E26A0CFDE0012150F /* Error */,
+				2F9A8C5726A0873F00BCBA76 /* Model */,
 				2F9A8C4826A085C900BCBA76 /* List */,
 				2F9A8C4926A085CE00BCBA76 /* Details */,
 				2F9A8C4626A083BC00BCBA76 /* HistoryCoordinator.swift */,
@@ -314,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				2FD3418F26A224A0007795EF /* Cells */,
-				2F9A8C5726A0873F00BCBA76 /* Model */,
 				2F9A8C5626A0873900BCBA76 /* Domain */,
 				2F9A8C4A26A085EB00BCBA76 /* HistoryViewController.swift */,
 				2F9A8C4C26A085F200BCBA76 /* HistoryViewModel.swift */,

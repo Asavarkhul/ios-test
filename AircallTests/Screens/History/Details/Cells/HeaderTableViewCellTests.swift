@@ -25,7 +25,7 @@ final class HeaderTableViewCellTests: TestCase {
 
     // MARK: - Tests
 
-    func testCreatesCell() {
+    func testThatCreatesHeaderTableViewCell() {
         cell.configure(with: "Hello Title World")
         snapshotCell(cell)
     }

@@ -25,34 +25,32 @@ final class CallTableViewCellTests: TestCase {
 
     // MARK: - Tests
 
-    // MARK: - Tests
-
-    func testCreatesMissedInboud() {
+    func testCreatesCallTableViewCell_MissedInboud() {
         cell.configure(with: .missedInboud)
         snapshotCell(cell)
     }
 
-    func testCreatesMissedOutbound() {
+    func testCreatesCallTableViewCell_MissedOutbound() {
         cell.configure(with: .missedOutbound)
         snapshotCell(cell)
     }
 
-    func testCreatesAnsweredInbound() {
+    func testCreatesCallTableViewCell_AnsweredInbound() {
         cell.configure(with: .answeredInbound)
         snapshotCell(cell)
     }
 
-    func testCreatesAnsweredOutbound() {
+    func testCreatesCallTableViewCell_AnsweredOutbound() {
         cell.configure(with: .answeredOutbound)
         snapshotCell(cell)
     }
 
-    func testCreatesVoiceMailInbound() {
+    func testCreatesCallTableViewCell_VoiceMailInbound() {
         cell.configure(with: .voicemailInbound)
         snapshotCell(cell)
     }
 
-    func testCreatesVoicemailOutbound() {
+    func testCreatesCallTableViewCell_VoicemailOutbound() {
         cell.configure(with: .voicemailOutbound)
         snapshotCell(cell)
     }

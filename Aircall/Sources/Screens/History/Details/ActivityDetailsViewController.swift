@@ -47,7 +47,7 @@ final class ActivityDetailsViewController: UIViewController {
         loader.hidesWhenStopped = true
         return loader
     }()
-    private var dataSource: [DisplayedActivityItems] = [] {
+    private var dataSource: [ActivityViewModel.DisplayedActivityItems] = [] {
         didSet {
             tableView.reloadData()
         }

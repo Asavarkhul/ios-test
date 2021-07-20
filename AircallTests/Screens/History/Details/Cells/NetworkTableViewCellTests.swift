@@ -25,12 +25,12 @@ final class NetworkTableViewCellTests: TestCase {
 
     // MARK: - Tests
 
-    func testCreatesCellForInBoundCall() {
+    func testCreatesNetworkTableViewCell_ForInBoundCall() {
         cell.configure(with: .inboud)
         snapshotCell(cell)
     }
 
-    func testCreatesCellForOutbound() {
+    func testCreatesNetworkTableViewCell_ForOutbound() {
         cell.configure(with: .outbound)
         snapshotCell(cell)
     }

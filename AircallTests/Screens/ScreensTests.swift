@@ -8,7 +8,7 @@
 import XCTest
 @testable import Aircall
 
-final class ScreensTests: XCTestCase {
+final class ScreensTests: TestCase {
 
     // MARK: - Properties
 
