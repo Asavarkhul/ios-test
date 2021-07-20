@@ -22,10 +22,9 @@ struct HistoryViewModel {
 
     // MARK: - Private
 
-    private let translator = Current.translator
     private let failBackSubject = PublishSubject<Void>()
-    private let archivedDataSource = PublishSubject<[Activity]>()
     private let dialogDataSourceSubject = PublishSubject<DialogAlertDataSource>()
+    private let dataSource = BehaviorSubject<[Activity]>(value: [])
 
     // MARK: - Actions
 
@@ -57,26 +56,30 @@ struct HistoryViewModel {
     func transform(inputs: Inputs) -> Outputs {
         let isLoadingSubject = PublishSubject<Bool>()
 
-        let getHistory = inputs
+        let getHistoryResponse = inputs
             .startTrigger
             .performRequest(
                 repository.getHistory,
                 onLoading: { isLoadingSubject.onNext($0) },
                 onError: { makeDataSource(for: $0) }
             )
-
-        let originalDataSource = getHistory
-            .map { $0.map { Activity(response: $0) } }
             .share()
 
-        let resetedDataSource: Observable<[Activity]> = inputs
+        let originalFetchedDataSource = getHistoryResponse
+            .map { $0.map { Activity(response: $0) } }
+            .do(onNext: {
+                dataSource.onNext($0)
+            })
+            .share()
+
+        let resetDataSourceAction = inputs
             .didPressReset
             .performRequest(
                 repository.reset,
                 onLoading: { isLoadingSubject.onNext($0) },
                 onError: { makeDataSource(for: $0) }
             )
-            .withLatestFrom(originalDataSource)
+            .withLatestFrom(originalFetchedDataSource)
             .map {
                 $0.map {
                     var activity = $0
@@ -84,23 +87,17 @@ struct HistoryViewModel {
                     return activity
                 }
             }
-            .share()
+            .do(onNext: {
+                dataSource.onNext($0)
+            })
+            .mapToVoid()
 
-        let dataSource = Observable.merge(
-            originalDataSource,
-            resetedDataSource,
-            archivedDataSource
-        )
-        .share()
-
-        let failBackDataSource = failBackSubject
+        let failBackDataSourceAction = failBackSubject
             .withLatestFrom(dataSource)
-
-        let upToDateDataSource = Observable.merge(
-            dataSource,
-            failBackDataSource
-        )
-        .share()
+            .do(onNext: {
+                dataSource.onNext($0)
+            })
+            .mapToVoid()
 
         let archiveActivityRequest: ((activityID: String, completionHandler: (Bool) -> Void))
             -> Single<Result<ArchiveActivityResponse, Swift.Error>> = { data -> Single<Result<ArchiveActivityResponse, Swift.Error>> in
@@ -115,8 +112,13 @@ struct HistoryViewModel {
                 })
         }
 
-        let selectActivityAction = Observable
-            .zip(inputs.didPressActivityAtIndex, upToDateDataSource)
+        let filteredDataSource = dataSource
+            .map { $0.filter { !$0.isArchived } }
+            .share()
+
+        let selectActivityAction = inputs
+            .didPressActivityAtIndex
+            .withLatestFrom(filteredDataSource) { (index: $0, activities: $1) }
             .do(onNext: { index, activities in
                 guard activities.indices.contains(index) else { return }
                 DispatchQueue.main.async {
@@ -125,11 +127,9 @@ struct HistoryViewModel {
             })
             .mapToVoid()
 
-        let dataSourceWithoutArchivedActivities = upToDateDataSource
-            .map { $0.filter { !$0.isArchived } }
-
-        let archiveActivityAction = inputs.didArchiveActivtyAtIndex
-            .withLatestFrom(dataSourceWithoutArchivedActivities) { (archiveActivity: $0, activities: $1) }
+        let archiveActivityAction = inputs
+            .didArchiveActivtyAtIndex
+            .withLatestFrom(filteredDataSource) { (archiveActivity: $0, activities: $1) }
             .filter {
                 if $0.activities.indices.contains($0.archiveActivity.index) {
                     return true
@@ -138,15 +138,16 @@ struct HistoryViewModel {
                     return false
                 }
             }
-            .map {
-                (activityID: $0.activities[$0.archiveActivity.index].id, completionHandler: $0.archiveActivity.completionHandler)
-            }
+            .map {(
+                activityID: $0.activities[$0.archiveActivity.index].id,
+                completionHandler: $0.archiveActivity.completionHandler
+            )}
             .performRequest(
                 archiveActivityRequest,
                 onLoading: { isLoadingSubject.onNext($0) },
                 onError: { makeDataSource(for: $0) }
             )
-            .withLatestFrom(dataSourceWithoutArchivedActivities) { (archiveActivity: $0, dataSource: $1) }
+            .withLatestFrom(filteredDataSource) { (archiveActivity: $0, dataSource: $1) }
             .map { archiveActivityResponse, activities -> [Activity] in
                 var activities = activities
                 guard let index = activities.firstIndex(
@@ -157,18 +158,20 @@ struct HistoryViewModel {
                 activities[index].archive()
                 return activities
             }.do(onNext: {
-                archivedDataSource.onNext(($0))
+                dataSource.onNext(($0))
             })
             .mapToVoid()
 
-        let displayedDataSource: Observable<[HistoryItems]> = dataSourceWithoutArchivedActivities
+        let displayedDataSource: Observable<[HistoryItems]> = filteredDataSource
             .map { $0.map { .activity(.init(activity: $0)) } }
 
         let title = Observable.just(Constants.title)
 
         let actions = Observable.merge(
             selectActivityAction,
-            archiveActivityAction
+            archiveActivityAction,
+            resetDataSourceAction,
+            failBackDataSourceAction
         )
 
         return .init(
@@ -193,7 +196,7 @@ struct HistoryViewModel {
     private func getErrorMessage(from error: HistoryError) -> String {
         switch error {
         case .dataConsistencyProblem: return Constants.dataConsistencyProblemMessage
-        case .dataSourceAvailabilityProblem: return Constants.dataConsistencyProblemMessage
+        case .dataSourceAvailabilityProblem: return Constants.dataSourceAvailabilityProblemMessage
         case .generalError: return Constants.generalErrorMessage
         }
     }
@@ -220,14 +223,30 @@ struct HistoryViewModel {
 
 private extension HistoryViewModel {
     enum Constants {
-        static var title: String { Current.translator.translation(for: "mobile/history/title.text") }
-        static var commonAlertTitle: String { Current.translator.translation(for: "mobile/error/common-alert-title.text") }
-        static var commonAlertMessage: String { Current.translator.translation(for: "mobile/error/common-alert-message.text") }
-        static var commonOkTitle: String { Current.translator.translation(for: "mobile/error/common-alert-action.text") }
-        static var failToArchiveMessage: String { Current.translator.translation(for: "mobile/error/fail-to-archive-activity-message.text") }
-        static var dataConsistencyProblemMessage: String { Current.translator.translation(for: "mobile/error/data-consistency-problem-essage.text") }
-        static var dataSourceAvailabilityProblemMessage: String { Current.translator.translation(for: "mobile/error/dataSource-availability-problem-essage.text") }
-        static var generalErrorMessage: String { Current.translator.translation(for: "mobile/error/general-error-message.text") }
+        static var title: String {
+            Current.translator.translation(for: "mobile/history/title.text")
+        }
+        static var commonAlertTitle: String {
+            Current.translator.translation(for: "mobile/error/common-alert-title.text")
+        }
+        static var commonAlertMessage: String {
+            Current.translator.translation(for: "mobile/error/common-alert-message.text")
+        }
+        static var commonOkTitle: String {
+            Current.translator.translation(for: "mobile/error/common-alert-action.text")
+        }
+        static var failToArchiveMessage: String {
+            Current.translator.translation(for: "mobile/error/fail-to-archive-activity-message.text")
+        }
+        static var dataConsistencyProblemMessage: String {
+            Current.translator.translation(for: "mobile/error/data-consistency-problem-essage.text")
+        }
+        static var dataSourceAvailabilityProblemMessage: String {
+            Current.translator.translation(for: "mobile/error/dataSource-availability-problem-essage.text")
+        }
+        static var generalErrorMessage: String {
+            Current.translator.translation(for: "mobile/error/general-error-message.text")
+        }
     }
 }
 

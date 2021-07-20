@@ -40,7 +40,17 @@ extension Screens {
 
 // MARK: - Activity Details
 extension Screens {
-    func createDetails(for activity: Activity) -> UIViewController {
-        return UIViewController()
+    func createDetails(for activity: Activity, onArchive: @escaping () -> Void) -> UIViewController {
+        let repository: ActivityRepository = .live(
+            requestBuilder: context.requestBuilder,
+            client: context.client,
+            parser: context.jsonParser
+        )
+        let viewModel = ActivityViewModel(
+            activity: activity,
+            actions: .init(onArchive: onArchive),
+            repository: repository
+        )
+        return ActivityDetailsViewController(viewModel: viewModel)
     }
 }

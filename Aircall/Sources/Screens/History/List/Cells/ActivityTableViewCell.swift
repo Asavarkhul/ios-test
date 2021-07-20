@@ -34,7 +34,6 @@ final class ActivityTableViewCell: UITableViewCell {
     )
     private let titleLabel = UILabel()
     private let subTitleLabel = UILabel()
-
     
     // MARK: - Right Container
     private let rightContainer = UIStackView(
@@ -93,12 +92,12 @@ final class ActivityTableViewCell: UITableViewCell {
 }
 
 private extension ActivityTableViewCell {
-    private func setupUI() {
+    func setupUI() {
         setupLayout()
         setupView()
     }
 
-    private func setupLayout() {
+    func setupLayout() {
         selectionStyle = .none
 
         // MARK: - Main
@@ -136,7 +135,7 @@ private extension ActivityTableViewCell {
         ])
     }
 
-    private func setupView() {
+    func setupView() {
         titleLabel.textColor = #colorLiteral(red: 0.06150835007, green: 0.09044837207, blue: 0.1245655492, alpha: 1)
         subTitleLabel.textColor = #colorLiteral(red: 0.4311936498, green: 0.4554408789, blue: 0.4724093676, alpha: 1)
         dayLabel.textColor = #colorLiteral(red: 0.4311936498, green: 0.4554408789, blue: 0.4724093676, alpha: 1)

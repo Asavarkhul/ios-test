@@ -31,7 +31,7 @@ final class ScreensTests: XCTestCase {
     }
 
     func testThatCreatesDetails() {
-        let sut = screens.createDetails(for: .init())
+        let sut = screens.createDetails(for: .init(), onArchive: {})
         XCTAssertNotNil(sut)
     }
 }

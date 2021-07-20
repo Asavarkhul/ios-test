@@ -7,7 +7,6 @@
 */
 
 "mobile/history/title.text" = "History";
-"mobile/history/empty-history.text" = "No one loves you 😮";
 "mobile/history/activity-inboud-via.text" = "on $var";
 "mobile/history/activity-outbound-via.text" = "made by $var";
 "mobile/error/common-alert-title.text" = "⚠️ Warning ⚠️";
@@ -17,3 +16,10 @@
 "mobile/error/data-consistency-problem-essage.text" = "Your data seems to be corrupted";
 "mobile/error/dataSource-availability-problem-essage.text" = "Your data seems unavailable at this time";
 "mobile/error/general-error-message.text" = "Your mobile will explode in a minute 🧨";
+"mobile/activity/details/call-information-title.text" = "Call Information";
+"mobile/activity/details/incoming-call.text" = "Incoming Call $var";
+"mobile/activity/details/outgoing-call.text" = "Outgoing Call $var";
+"mobile/activity/missed-call.text" = "missed";
+"mobile/activity/answered-call-text" = "answered";
+"mobile/activity/voicemail-call.text" = "voicemail";
+

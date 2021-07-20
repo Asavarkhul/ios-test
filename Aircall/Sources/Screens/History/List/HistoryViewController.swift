@@ -73,6 +73,7 @@ final class HistoryViewController: UIViewController {
     private func setupLayout() {
         navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.04121053964, green: 0.6986636519, blue: 0.5262304544, alpha: 1)
         navigationItem.rightBarButtonItem = resetBarButtonItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: activityLoader)
 

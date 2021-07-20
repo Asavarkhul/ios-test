@@ -16,6 +16,17 @@
 		2F892E1526A0DCD90012150F /* ResetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F892E1426A0DCD90012150F /* ResetResponse.swift */; };
 		2F892E1726A0DCE30012150F /* ResetEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F892E1626A0DCE30012150F /* ResetEndpoint.swift */; };
 		2F892E1926A0DDB00012150F /* ResetResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 2F892E1826A0DDAF0012150F /* ResetResponse.json */; };
+		2F99160526A6D1E2003CCC27 /* HistoryError+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99160426A6D1E2003CCC27 /* HistoryError+APIError.swift */; };
+		2F99160826A6D221003CCC27 /* ActivityRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99160726A6D221003CCC27 /* ActivityRepositoryTests.swift */; };
+		2F99160B26A6E59E003CCC27 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99160A26A6E59E003CCC27 /* HeaderTableViewCell.swift */; };
+		2F99160D26A6E60A003CCC27 /* CallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99160C26A6E60A003CCC27 /* CallTableViewCell.swift */; };
+		2F99160F26A6E612003CCC27 /* NetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99160E26A6E612003CCC27 /* NetworkTableViewCell.swift */; };
+		2F99161126A6E61E003CCC27 /* CallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161026A6E61E003CCC27 /* CallViewModel.swift */; };
+		2F99161326A6E627003CCC27 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161226A6E627003CCC27 /* NetworkViewModel.swift */; };
+		2F99161626A72522003CCC27 /* HeaderTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161526A72522003CCC27 /* HeaderTableViewCellTests.swift */; };
+		2F99161826A725D5003CCC27 /* CallTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161726A725D5003CCC27 /* CallTableViewCellTests.swift */; };
+		2F99161A26A72721003CCC27 /* NetworkTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161926A72721003CCC27 /* NetworkTableViewCellTests.swift */; };
+		2F99161C26A72864003CCC27 /* ActivityDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99161B26A72864003CCC27 /* ActivityDetailsViewModelTests.swift */; };
 		2F99279626A4BFCE007559FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F99279526A4BFCE007559FB /* Localizable.strings */; };
 		2F99279926A4C186007559FB /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99279826A4C186007559FB /* Translator.swift */; };
 		2F99279B26A4C374007559FB /* BundleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F99279A26A4C374007559FB /* BundleStorage.swift */; };
@@ -101,6 +112,17 @@
 		2F892E1426A0DCD90012150F /* ResetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetResponse.swift; sourceTree = "<group>"; };
 		2F892E1626A0DCE30012150F /* ResetEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetEndpoint.swift; sourceTree = "<group>"; };
 		2F892E1826A0DDAF0012150F /* ResetResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ResetResponse.json; sourceTree = "<group>"; };
+		2F99160426A6D1E2003CCC27 /* HistoryError+APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryError+APIError.swift"; sourceTree = "<group>"; };
+		2F99160726A6D221003CCC27 /* ActivityRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepositoryTests.swift; sourceTree = "<group>"; };
+		2F99160A26A6E59E003CCC27 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
+		2F99160C26A6E60A003CCC27 /* CallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallTableViewCell.swift; sourceTree = "<group>"; };
+		2F99160E26A6E612003CCC27 /* NetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewCell.swift; sourceTree = "<group>"; };
+		2F99161026A6E61E003CCC27 /* CallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewModel.swift; sourceTree = "<group>"; };
+		2F99161226A6E627003CCC27 /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
+		2F99161526A72522003CCC27 /* HeaderTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCellTests.swift; sourceTree = "<group>"; };
+		2F99161726A725D5003CCC27 /* CallTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallTableViewCellTests.swift; sourceTree = "<group>"; };
+		2F99161926A72721003CCC27 /* NetworkTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewCellTests.swift; sourceTree = "<group>"; };
+		2F99161B26A72864003CCC27 /* ActivityDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		2F99279526A4BFCE007559FB /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2F99279826A4C186007559FB /* Translator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translator.swift; sourceTree = "<group>"; };
 		2F99279A26A4C374007559FB /* BundleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStorage.swift; sourceTree = "<group>"; };
@@ -205,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				2F892E0F26A0CFF20012150F /* HistoryError.swift */,
+				2F99160426A6D1E2003CCC27 /* HistoryError+APIError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -224,6 +247,38 @@
 				2FAE330126A5BC7B007D97A2 /* MockContext.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2F99160626A6D20E003CCC27 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				2F99161426A72508003CCC27 /* Cells */,
+				2F99160726A6D221003CCC27 /* ActivityRepositoryTests.swift */,
+				2F99161B26A72864003CCC27 /* ActivityDetailsViewModelTests.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		2F99160926A6E56E003CCC27 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2F99160A26A6E59E003CCC27 /* HeaderTableViewCell.swift */,
+				2F99160C26A6E60A003CCC27 /* CallTableViewCell.swift */,
+				2F99161026A6E61E003CCC27 /* CallViewModel.swift */,
+				2F99160E26A6E612003CCC27 /* NetworkTableViewCell.swift */,
+				2F99161226A6E627003CCC27 /* NetworkViewModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2F99161426A72508003CCC27 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2F99161526A72522003CCC27 /* HeaderTableViewCellTests.swift */,
+				2F99161726A725D5003CCC27 /* CallTableViewCellTests.swift */,
+				2F99161926A72721003CCC27 /* NetworkTableViewCellTests.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		2F99279726A4C170007559FB /* Translator */ = {
@@ -247,6 +302,7 @@
 		2F9A8C4326A0838400BCBA76 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				2F892E0E26A0CFDE0012150F /* Error */,
 				2F9A8C4826A085C900BCBA76 /* List */,
 				2F9A8C4926A085CE00BCBA76 /* Details */,
 				2F9A8C4626A083BC00BCBA76 /* HistoryCoordinator.swift */,
@@ -258,7 +314,6 @@
 			isa = PBXGroup;
 			children = (
 				2FD3418F26A224A0007795EF /* Cells */,
-				2F892E0E26A0CFDE0012150F /* Error */,
 				2F9A8C5726A0873F00BCBA76 /* Model */,
 				2F9A8C5626A0873900BCBA76 /* Domain */,
 				2F9A8C4A26A085EB00BCBA76 /* HistoryViewController.swift */,
@@ -271,6 +326,7 @@
 		2F9A8C4926A085CE00BCBA76 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				2F99160926A6E56E003CCC27 /* Cells */,
 				2F9A8C5026A0860A00BCBA76 /* ActivityDetailsViewController.swift */,
 				2F9A8C5226A0861200BCBA76 /* ActivityDetailsViewModel.swift */,
 				2F9A8C5426A0861A00BCBA76 /* ActivityDetailsRepository.swift */,
@@ -303,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				2F9A8C6126A091C800BCBA76 /* List */,
+				2F99160626A6D20E003CCC27 /* Details */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -589,6 +646,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F99160526A6D1E2003CCC27 /* HistoryError+APIError.swift in Sources */,
 				2FD2D3AA26A0750F009AA391 /* AppCoordinator.swift in Sources */,
 				2FD2D37426A07434009AA391 /* AppDelegate.swift in Sources */,
 				2FD2D3CA26A07E2E009AA391 /* JSONParser.swift in Sources */,
@@ -598,12 +656,15 @@
 				2F9A8C5326A0861200BCBA76 /* ActivityDetailsViewModel.swift in Sources */,
 				2FCBA33026A60A030024ACC4 /* UITableViewCell+Extension.swift in Sources */,
 				2F99279D26A4C77F007559FB /* Environment.swift in Sources */,
+				2F99161126A6E61E003CCC27 /* CallViewModel.swift in Sources */,
+				2F99160F26A6E612003CCC27 /* NetworkTableViewCell.swift in Sources */,
 				2F9A8C4526A083AE00BCBA76 /* Screens.swift in Sources */,
 				2F9927AD26A579FC007559FB /* Date+Extension.swift in Sources */,
 				2FD2D3C226A07DEA009AA391 /* UIStackView.swift in Sources */,
 				2F99279926A4C186007559FB /* Translator.swift in Sources */,
 				2F9A8C5F26A08F6C00BCBA76 /* ArchiveActivityEndpoint.swift in Sources */,
 				2FD2D3CC26A07E3E009AA391 /* Endpoint.swift in Sources */,
+				2F99160B26A6E59E003CCC27 /* HeaderTableViewCell.swift in Sources */,
 				2FD2D3C626A07E10009AA391 /* HTTPClient.swift in Sources */,
 				2FD2D3C026A07DDE009AA391 /* UIViewController+Rx.swift in Sources */,
 				2F9A8C5926A0875600BCBA76 /* Activity.swift in Sources */,
@@ -612,6 +673,7 @@
 				2F9A8C5B26A0878000BCBA76 /* HistoryResponse.swift in Sources */,
 				2F9A8C5126A0860A00BCBA76 /* ActivityDetailsViewController.swift in Sources */,
 				2FE7B39E26A59F30007BD5AD /* AlertMessage.swift in Sources */,
+				2F99160D26A6E60A003CCC27 /* CallTableViewCell.swift in Sources */,
 				2FE7B39C26A59A33007BD5AD /* DialogAlertPresenter.swift in Sources */,
 				2F9A8C4D26A085F200BCBA76 /* HistoryViewModel.swift in Sources */,
 				2F9A8C4F26A085FB00BCBA76 /* HistoryRepository.swift in Sources */,
@@ -619,6 +681,7 @@
 				2F9A8C5D26A08D5D00BCBA76 /* HistoryEndpoint.swift in Sources */,
 				2F9A8C4726A083BC00BCBA76 /* HistoryCoordinator.swift in Sources */,
 				2F9A8C5526A0861A00BCBA76 /* ActivityDetailsRepository.swift in Sources */,
+				2F99161326A6E627003CCC27 /* NetworkViewModel.swift in Sources */,
 				2F892E1526A0DCD90012150F /* ResetResponse.swift in Sources */,
 				2FD2D3C426A07DF7009AA391 /* PrimitiveSequenceType+Extension.swift in Sources */,
 				2FD2D3A826A07508009AA391 /* Context.swift in Sources */,
@@ -634,21 +697,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F99161A26A72721003CCC27 /* NetworkTableViewCellTests.swift in Sources */,
 				2FD2D3D526A07E8E009AA391 /* XCTestCase+Utilities.swift in Sources */,
 				2FAE330026A5BC43007D97A2 /* ScreensTests.swift in Sources */,
+				2F99161626A72522003CCC27 /* HeaderTableViewCellTests.swift in Sources */,
 				2F9927AB26A56994007559FB /* TranslatorTests.swift in Sources */,
 				2F9A8C6326A091D600BCBA76 /* HistoryRepositoryTests.swift in Sources */,
 				2FD3419626A231CB007795EF /* XCTestCase+Extensions.swift in Sources */,
 				2FD2D3D326A07E79009AA391 /* HTTPClientTests.swift in Sources */,
 				2F99279F26A4C8D3007559FB /* Environment+XCtestCase.swift in Sources */,
 				2F892E0D26A0CCA40012150F /* Bundle+Tests.swift in Sources */,
+				2F99160826A6D221003CCC27 /* ActivityRepositoryTests.swift in Sources */,
 				2F9927A626A561E3007559FB /* MockTranslator.swift in Sources */,
 				2FD3419826A2322D007795EF /* MockTableViewController.swift in Sources */,
 				2FB793C326A17ACB00FAAF50 /* HistoryViewModelTests.swift in Sources */,
 				2F892E1326A0D7000012150F /* MockClient.swift in Sources */,
 				2F9927A826A56320007559FB /* Mocktranslator+MockLocalizable.swift in Sources */,
+				2F99161C26A72864003CCC27 /* ActivityDetailsViewModelTests.swift in Sources */,
 				2FD3419A26A23280007795EF /* ActivityCellTests.swift in Sources */,
 				2FD2D3D726A07E9E009AA391 /* JSONParserTests.swift in Sources */,
+				2F99161826A725D5003CCC27 /* CallTableViewCellTests.swift in Sources */,
 				2FAE330226A5BC7B007D97A2 /* MockContext.swift in Sources */,
 				2FD2D3D126A07E6C009AA391 /* ResquestBuilderTests.swift in Sources */,
 				2F892E0826A0CB0E0012150F /* IntegrationTestsCheck.swift in Sources */,

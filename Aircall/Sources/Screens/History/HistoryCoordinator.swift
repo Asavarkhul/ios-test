@@ -43,7 +43,9 @@ final class HistoryCoordinator {
     }
 
     private func showDetails(for activity: Activity) {
-        let details = screens.createDetails(for: activity)
+        let details = screens.createDetails(for: activity, onArchive: { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        })
         navigationController.pushViewController(details, animated: true)
     }
 }
